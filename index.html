@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<link rel="import" href="static/widget/head/head.html?__inline">
+<body >
+	<div id="view" class="view">
+		<!-- @require static/js/header.js -->
+		<div id="header" class="header">
+			<div class="h-left">
+				<a></a>
+			</div>
+			<div class="h-center">
+				<a class="logo">二维码应用平台</a>
+			</div>
+			<div class="h-right">
+				<a class="menu"></a>
+				<div class="menu-bg">
+					<ul>
+						<li>
+							<span>标签1</span>
+							<ul>
+								<li>返回</li>
+								<li>标签1.1</li>
+								<li>标签1.1</li>
+								<li>标签1.1</li>
+								<li>标签1.1</li>
+								<li>标签1.1</li>
+							</ul>
+						</li>
+						<li>标签2</li>
+						<li>标签3</li>
+						<!--<li class="mask"></li>-->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- @require static/css/main.less -->
+		<!-- @require static/js/main.js -->
+		<div id="main" class="main">
+			<div id="infoTab">
+				<div class="info-form on">
+					<div class="info-hd">
+						输入文本内容：
+					</div>
+					<div class="info-bd">
+						<textarea onkeyup="tools.textareaLimt(this,300)"  rows="5"   placeholder=""></textarea>
+						<div class="text-count"><span>0</span>/300</div>
+					</div>
+				</div>
+				<div class="info-form">
+					<div class="info-hd">
+						输入短信内容：
+					</div>
+					<div class="info-bd">
+						<textarea onkeyup="tools.textareaLimt(this,300)" rows="5"  placeholder=""></textarea>
+						<div class="text-count"><span>0</span>/300</div>
+					</div>
+				</div>
+				<div class="info-form">
+					<div class="info-hd">
+						输入名片内容：
+					</div>
+					<div class="info-bd">
+						<div class="input-box">
+							<span>姓名：</span>
+							<input type="text">
+						</div>
+						<div class="input-box">
+							<span>单位：</span>
+							<input type="text">
+						</div>
+						<div class="input-box">
+							<span>职位：</span>
+							<input type="text">
+						</div>
+						<div class="input-box">
+							<span>电话：</span>
+							<input type="tel">
+							<i class="add"></i>
+						</div>
+						<div class="input-box">
+							<span>电话：</span>
+							<input type="tel">
+							<i class="sub"></i>
+						</div>
+						<div class="input-box">
+							<span>邮箱：</span>
+							<input type="text">
+						</div>
+					</div>
+				</div>
+				<div class="info-form">
+					<div class="info-hd">
+						输入邮件内容：
+					</div>
+					<div class="info-bd">
+						<textarea onkeyup="tools.textareaLimt(this,300)" rows="5"  placeholder=""></textarea>
+						<div class="text-count"><span>0</span>/300</div>
+					</div>
+				</div>
+				<div class="info-form">
+					<div class="info-hd">
+						输入电话号码：
+					</div>
+					<div class="info-bd">
+						<div class="input-box">
+							<input type="tel">
+						</div>
+					</div>
+				</div>
+				<div class="info-form">
+					<div class="info-hd">
+						输入网址：
+					</div>
+					<div class="info-bd">
+						<div class="input-box">
+							<input type="text">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="creat" class="creat">
+				<button class="btn">生成</button>
+			</div>
+			<div id="createwm-box">
+				<div class="close">关闭</div>
+				<div id="grade_look"></div>
+				<p>登录后可永久保存</p>
+				<p>或长按二维码图片保存至手机相册</p>
+				<a class="btn w-70" href="page/login.html">登录</a>
+			</div>
+			<div id="sortTab" class="sort-tab">
+				<div class="bar"></div>
+				<ul>
+					<li class="sort-text on">
+						<span>文本</span>
+					</li>
+					<li class="sort-sms">
+						<span>短信</span>
+					</li>
+					<li class="sort-vcard">
+						<span>名片</span>
+					</li>
+					<li class="sort-email">
+						<span>邮件</span>
+					</li>
+					<li class="sort-phone">
+						<span>电话</span>
+					</li>
+					<li class="sort-url">
+						<span>网址</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="footer" class="footer">
+			<link rel="import" href="static/widget/footer/footer_default.html?__inline">
+		</div>
+	</div>
+</body>
+</html>
+

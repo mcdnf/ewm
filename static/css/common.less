@@ -1,0 +1,116 @@
+
+
+@import  '_view.less';
+@import  '_base.less';
+@import '_mixin.less';
+@import '_tools.less';
+@import '_header.less';
+@import '_footer.less';
+
+
+textarea {
+  border: 1px solid @line-c;
+  border-radius: .5rem;
+  line-height: 2rem;
+  padding: .5rem;
+  width: 100%;
+  resize: none;
+  -webkit-appearance: none;
+  +.text-count{
+    display: inline-block;
+    color:#d0d0d4;
+    margin-top: .5rem;
+  }
+}
+.submit,
+input[type="submit"] {
+  margin: 1rem auto;
+  color: @white;
+  background: @mc;
+  line-height: 1rem;
+  padding: .5rem 1.5rem;
+  border: 1px solid @line-c;
+  border-radius: .3rem;
+}
+
+.btn{
+  color: @white;
+  background: @mc;
+  padding: .3rem 1.5rem;
+  font-size: 1.3rem;
+  border-radius: .3rem;
+  text-align: center;
+  &.w-70{
+    display: block;
+    width: 70%;
+    padding: .6rem;
+    margin: 1rem auto;
+  }
+  &.full{
+    display: block;
+    width: 100%;
+    padding: .8rem;
+  }
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.img-pulse {
+  &:hover {
+    img {
+      animation-name: pulse;
+      .animated()
+    }
+  }
+}
+
+.img-zoomIn {
+  &:hover {
+    img {
+      animation-name: zoomIn;
+      .animated()
+    }
+  }
+}
+
+//hover 图片放大
+.img-enlarge {
+  overflow: hidden;
+  transition: all ease 1s;
+  &:hover {
+    img {
+      transform: scale(1.2);
+      -webkit-transform: scale(1.2);
+      -moz-transform: scale(1.2);
+    }
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.2, 1.2, 1.2);
+  }
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.zoomIn {
+  animation-name: zoomIn;
+}

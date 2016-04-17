@@ -1,0 +1,200 @@
+/* 清除浮动 */
+
+.clearfix() {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: ' ';
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+//去除默认样式
+.appearance-n() {
+  appearance: none;
+  -moz-appearance: none;
+  /* Firefox */
+  -webkit-appearance: none;
+  /* Safari 和 Chrome */
+}
+
+
+/* 文字不换行超出... */
+
+.text-e() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* 文字不换行超出隐藏 */
+
+.text-n() {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.border(){
+  border: @line-h solid @line-c;
+}
+.border-n(){
+  border: none;
+}
+.border-r(){
+  border-radius: .3rem;
+}
+.border-t(){
+  border-top: @line-h solid @line-c;
+}
+.border-r(){
+  border-right: @line-h solid @line-c;
+}
+.border-b(){
+  border-bottom: @line-h solid @line-c;
+}
+.border-l(){
+  border-left: @line-h solid @line-c;
+}
+
+/* 一些简单的mixin */
+
+.arrow-l(@width, @height, @color) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-width: @width/2 @height @width/2 0;
+  border-color: transparent @color transparent transparent;
+  border-style: solid;
+  vertical-align: middle;
+}
+
+.arrow-r(@width, @height, @color) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-width: @width/2 0 @width/2 @height;
+  border-color: transparent transparent transparent @color;
+  border-style: solid;
+  vertical-align: middle;
+}
+
+.arrow-u(@width, @height, @color) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-width: 0 @width/2 @height @width/2;
+  border-color: transparent transparent @color transparent;
+  border-style: solid;
+  vertical-align: middle;
+}
+
+.arrow-d(@width, @height, @color) {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-width: @height @width/2 0 @width/2;
+  border-color: @color transparent transparent transparent;
+  border-style: solid;
+  vertical-align: middle;
+}
+
+
+
+.arrow-rr(@width, @height, @color, @bgcolor) {
+  position: relative;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+  }
+  &:before {
+    margin-right: 0.1rem;
+    .arrow-r(@width, @height, @color);
+  }
+  &:after {
+    margin-right: 0.18rem;
+    .arrow-r(@width, @height, @bgcolor);
+  }
+}
+
+.arrow-ll(@width, @height, @color, @bgcolor) {
+  position: relative;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+  }
+  &:before {
+    margin-left: 0.1rem;
+    .arrow-l(@width, @height, @color);
+  }
+  &:after {
+    margin-left: 0.25rem;
+    .arrow-l(@width, @height, @bgcolor);
+  }
+}
+
+//css对号
+.ico-check(@width, @height, @size, @color) {
+  position: relative;
+  &:before {
+    content: "";
+    display: block;
+    width: @width;
+    height: @height;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-left: @size solid @color;
+    border-bottom: @size solid @color;
+    margin-left: -@width/2;
+    margin-top: -@height/2;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+}
+
+.fadeIn-50 {
+  animation-name: fadeIn-50;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
+
+.fadeOut-50 {
+  animation-name: fadeOut-50;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
+
+@keyframes fadeIn-50 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+@keyframes fadeOut-50 {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+}
