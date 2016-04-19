@@ -37,67 +37,74 @@
 		<!-- @require static/js/main.js -->
 		<div id="main" class="main">
 			<div id="infoTab">
-				<div class="info-form on">
+				<form class="info-form text on" enctype="multipart/form-data" >
 					<div class="info-hd">
 						输入文本内容：
 					</div>
 					<div class="info-bd">
-						<textarea onkeyup="tools.textareaLimt(this,300)"  rows="5"   placeholder=""></textarea>
+						<textarea name="Content" required onkeyup="tools.textareaLimt(this,300)"  rows="5"   placeholder=""></textarea>
 						<div class="text-count"><span>0</span>/300</div>
 					</div>
-				</div>
-				<div class="info-form">
+				</form>
+				<form class="info-form sms" enctype="multipart/form-data" >
 					<div class="info-hd">
 						输入短信内容：
 					</div>
 					<div class="info-bd">
-						<textarea onkeyup="tools.textareaLimt(this,300)" rows="5"  placeholder=""></textarea>
+						<textarea name="Content" onkeyup="tools.textareaLimt(this,300)" rows="5"  placeholder=""></textarea>
 						<div class="text-count"><span>0</span>/300</div>
 					</div>
-				</div>
-				<div class="info-form">
+					<div class="info-hd">
+						输入电话号码：
+					</div>
+					<div class="info-bd">
+						<div class="input-box">
+							<input name="tel" type="tel">
+						</div>
+					</div>
+				</form>
+				<form class="info-form vacrd" enctype="multipart/form-data" >
 					<div class="info-hd">
 						输入名片内容：
 					</div>
 					<div class="info-bd">
 						<div class="input-box">
 							<span>姓名：</span>
-							<input type="text">
+							<input name="TEL" type="text">
 						</div>
 						<div class="input-box">
 							<span>单位：</span>
-							<input type="text">
+							<input name="ORG" type="text">
 						</div>
 						<div class="input-box">
 							<span>职位：</span>
-							<input type="text">
+							<input name="TIL" type="text">
 						</div>
 						<div class="input-box">
 							<span>电话：</span>
-							<input type="tel">
+							<input name="TEL" type="tel">
 							<i class="add"></i>
 						</div>
 						<div class="input-box">
 							<span>电话：</span>
-							<input type="tel">
+							<input name="TEL" type="tel">
 							<i class="sub"></i>
 						</div>
 						<div class="input-box">
 							<span>邮箱：</span>
-							<input type="text">
+							<input name="EMAIL" type="text">
 						</div>
 					</div>
-				</div>
-				<div class="info-form">
+				</form>
+				<form class="info-form email" enctype="multipart/form-data" >
 					<div class="info-hd">
 						输入邮件内容：
 					</div>
 					<div class="info-bd">
-						<textarea onkeyup="tools.textareaLimt(this,300)" rows="5"  placeholder=""></textarea>
-						<div class="text-count"><span>0</span>/300</div>
+						<input type="email">
 					</div>
-				</div>
-				<div class="info-form">
+				</form>
+				<form class="info-form tel" enctype="multipart/form-data" >
 					<div class="info-hd">
 						输入电话号码：
 					</div>
@@ -106,8 +113,8 @@
 							<input type="tel">
 						</div>
 					</div>
-				</div>
-				<div class="info-form">
+				</form>
+				<form class="info-form url" enctype="multipart/form-data" >
 					<div class="info-hd">
 						输入网址：
 					</div>
@@ -116,7 +123,7 @@
 							<input type="text">
 						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 			<div id="creat" class="creat">
 				<button class="btn">生成</button>

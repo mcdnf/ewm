@@ -7,10 +7,10 @@
 
 var creatIndex = {
     getList : function (pagesize, pageindex, listtype, catalogid ) {
-        var url = '?pagesize={' + pagesize + '}&' +
-            'pageindex={' + pageindex + '}&' +
-            'listtype={' + listtype + '}&' +
-            'catalogid={' + catalogid  + '}';
+        var url = '?pagesize=' + pagesize + '&' +
+            'pageindex=' + pageindex + '&' +
+            'listtype=' + listtype + '&' +
+            'catalogid=' + catalogid;
         api.getqrcodelist(url,function (data) {
             console.log(data);
         });
@@ -45,7 +45,7 @@ var creatIndex = {
 
 }
 creatIndex.add();
-creatIndex.getList(10,1,0);
+creatIndex.getList(10,1,0,0);
 function creatItem() {
     var _htmlArr = [],
         _item =

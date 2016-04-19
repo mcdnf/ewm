@@ -21,7 +21,7 @@ var tools = window.tools || {
                     cache : false,
                     async:  isAsync || true,
                     //超时
-                    timeout : 30000,
+                    timeout : 10000,
                     processData: false,
                     contentType:false,
                     xhrFields:{
@@ -69,6 +69,16 @@ var tools = window.tools || {
         },
         goPage : function(pageName){
             window.location.href = pageUrl + pageName + '.html';
+        },
+        getPageName : function () {
+            var strUrl= window.location.href;
+            return strUrl.split("/").pop().split(".").shift();
+        },
+        setGoLogin : function () {
+            var strUrl= window.location.href;
+            strUrl =  strUrl.split("/").pop().split(".").shift();
+            sessionStorage.setItem('goLogin',strUrl);
+            tools.goPage('login');
         },
         textareaLimt : function (el,num) {
             var _text = $(el).val();
