@@ -4,47 +4,56 @@
 <body>
 <div id="view" class="view">
     <div id="header" class="header">
+        <div class="h-left" style="display: none">
+            <a class="h-btn">取消</a>
+        </div>
         <div class="h-center">
             <a>我</a>
+        </div>
+        <div class="h-right" style="display: none">
+            <a class="h-btn">保存</a>
         </div>
     </div>
     <!-- @require static/css/main.less -->
     <!-- @require static/js/wode.js -->
     <div id="main" class="main wode-list">
-        <a class="item item-head">
-            <span>头像</span>
-            <span>
+        <div id="list">
+            <a class="item item-head">
+                <span>头像</span>
+            <span id="Portrait">
                 <img src="../static/img/p16.png" alt="">
             </span>
-        </a>
-        <a class="item">
-            <span>姓名</span>
-            <span id="Name"></span>
-        </a>
-        <a class="item">
-            <span>昵称</span>
-            <span id="NickName"></span>
-        </a>
-        <a class="item">
-            <span>性别</span>
-            <span id="Sex">男</span>
-        </a>
-        <a class="item">
-            <span>职业</span>
-            <span id="Job"></span>
-        </a>
-        <a class="item">
-            <span>生日</span>
-            <span id="Birthday"></span>
-        </a>
-        <a class="item">
-            <span>QQ</span>
-            <span id="QQ"></span>
-        </a>
-        <a class="item">
-            <span>微信</span>
-            <span id="Weixin"></span>
-        </a>
+            </a>
+            <a class="item">
+                <span>姓名</span>
+                <span id="Name"></span>
+            </a>
+            <a class="item">
+                <span>昵称</span>
+                <span id="NickName"></span>
+            </a>
+            <a class="item">
+                <span>性别</span>
+                <span id="Gender">男</span>
+            </a>
+            <a class="item">
+                <span>职业</span>
+                <span id="Job"></span>
+            </a>
+            <a class="item">
+                <span>生日</span>
+                <span id="Birthday"></span>
+            </a>
+            <a class="item">
+                <span>QQ</span>
+                <span id="QQ"></span>
+            </a>
+            <a class="item">
+                <span>微信</span>
+                <span id="Weixin"></span>
+            </a>
+        </div>
+        <div id="change"></div>
 
     </div>
     <div id="footer" class="footer">

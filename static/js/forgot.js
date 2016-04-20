@@ -37,7 +37,8 @@ var forgot = function () {
                 tools.layer.toast('请输入验证码!');
 
             } else {
-                api.checkimagecode(account, _code, function (data) {
+                api.checksendcode(account, _code, function (data) {
+                    console.log(data);
                     if(data.Success){
                         $_item.removeClass('on').next().addClass('on');
                     } else {
@@ -56,11 +57,12 @@ var forgot = function () {
             }
             else {
                 var _param = new FormData();
-                _param.append('Password',Password)
-                    .append('RePassword',RePassword)
-                    .append('Account',account)
-                    .append('Code',0);
+                _param.append('Password',Password);
+                _param.append('RePassword',RePassword);
+                _param.append('Account',account);
+                _param.append('Code',0);
                 api.modifypwd(_param, function (data) {
+                    console.log(data);
                     if(!data.Success){
                         tools.layer.toast('修改失败');
                     }
