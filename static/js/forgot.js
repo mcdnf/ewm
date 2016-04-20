@@ -63,8 +63,14 @@ var forgot = function () {
                 _param.append('Code',0);
                 api.modifypwd(_param, function (data) {
                     console.log(data);
-                    if(!data.Success){
+                    if(data.Success){
+                        tools.layer.toast('登录成功',function () {
+                            var goLogin = sessionStorage.getItem('goLogin');
+                            tools.goPage(goLogin || 'creatIndex');
+                        });
+                    } else {
                         tools.layer.toast('修改失败');
+                        tools.goPage('forgotPassword');
                     }
                 })
             }
