@@ -71,10 +71,9 @@ var api ={
         );
     },
     //删除二维码
-    delqrcode: function (param, callBackFn) {
-        tools.ajax.post(
-            website.qrcode + 'del/',
-            param,
+    delqrcode: function (url, callBackFn) {
+        tools.ajax.get(
+            website.qrcode + 'del/?id=' + url,
             callBackFn
         );
     },

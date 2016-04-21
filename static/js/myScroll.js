@@ -4,15 +4,14 @@
  */
 
 
-
 var items_per_page = 10;
 var scroll_in_progress = false;
 var myScroll;
-var load_content = function(refresh, next_page) {
+var load_content = function (refresh, next_page) {
     // This is a DEMO function which generates DEMO content into the scroller.
     // Here you should place your AJAX request to fetch the relevant content (e.g. $.post(...))
     console.log(refresh, next_page);
-    setTimeout(function() { // This immitates the CALLBACK of your AJAX function
+    setTimeout(function () { // This immitates the CALLBACK of your AJAX function
         var _el = '<div class="pullDown">' +
             '<span class="pullDownIcon"></span>' +
             '<span class="pullDownLabel"></span>' +
@@ -21,20 +20,22 @@ var load_content = function(refresh, next_page) {
 
             '</ul>' +
             '<div class="pullUp"></div>';
-        if(!$('#scroller').find('.pullDown').length){
+        if (!$('#scroller').find('.pullDown').length) {
             $('#scroller').append(_el);
         }
 
         var $_ul = $('#scroller > ul');
         if (!refresh) {
             // Loading the initial content
-            $_ul.append(creatItem());
+            creatItem($_ul,$('#wrapper > #scroller > ul').data('page'));
 
         } else if (refresh && !next_page) {
             // Refreshing the content
-            $_ul.empty().append(creatItem());
+            creatItem($_ul,$('#wrapper > #scroller > ul').data('page'));
+
         } else if (refresh && next_page) {
-            $_ul.append(creatItem());
+            creatItem($_ul,$('#wrapper > #scroller > ul').data('page'));
+
         }
 
         if (refresh) {
@@ -61,7 +62,7 @@ function pullDownAction() {
     $('#wrapper > #scroller > ul').data('page', 1);
 
     // Since "topOffset" is not supported with iscroll-5
-    $('#wrapper > .scroller').css({top:0});
+    $('#wrapper > .scroller').css({top: 0});
 
 }
 function pullUpAction(callback) {
@@ -82,7 +83,7 @@ function pullActionCallback() {
 
         pullDownEl.className = 'pullDown';
 
-        myScroll.scrollTo(0, parseInt(pullUpOffset)*(-1), 200);
+        myScroll.scrollTo(0, parseInt(pullUpOffset) * (-1), 200);
 
     } else if (pullUpEl && pullUpEl.className.match('loading')) {
 
@@ -92,14 +93,14 @@ function pullActionCallback() {
 }
 
 var pullActionDetect = {
-    count:0,
-    limit:10,
-    check:function(count) {
+    count: 0,
+    limit: 10,
+    check: function (count) {
         if (count) {
             pullActionDetect.count = 0;
         }
         // Detects whether the momentum has stopped, and if it has reached the end - 200px of the scroller - it trigger the pullUpAction
-        setTimeout(function() {
+        setTimeout(function () {
             if (myScroll.y <= (myScroll.maxScrollY + 200) && pullUpEl && !pullUpEl.className.match('loading')) {
                 $('.pullUp').addClass('loading').html('<span class="pullUpIcon">&nbsp;</span><span class="pullUpLabel"></span>');
                 pullUpAction();
@@ -136,9 +137,17 @@ function trigger_myScroll(offset) {
     }
 
     myScroll = new IScroll('#wrapper', {
-        probeType:1, tap:true, click:false, preventDefaultException:{tagName:/.*/}, mouseWheel:true, scrollbars:true, fadeScrollbars:true, interactiveScrollbars:false, keyBindings:false,
-        deceleration:0.0002,
-        startY:(parseInt(offset)*(-1))
+        probeType: 1,
+        tap: true,
+        click: false,
+        preventDefaultException: {tagName: /.*/},
+        mouseWheel: true,
+        scrollbars: true,
+        fadeScrollbars: true,
+        interactiveScrollbars: false,
+        keyBindings: false,
+        deceleration: 0.0002,
+        startY: (parseInt(offset) * (-1))
     });
 
     myScroll.on('scrollStart', function () {
@@ -164,7 +173,7 @@ function trigger_myScroll(offset) {
     });
     myScroll.on('scrollEnd', function () {
         console.log('scroll ended');
-        setTimeout(function() {
+        setTimeout(function () {
             scroll_in_progress = false;
         }, 100);
         if ($('#wrapper ul > li').length >= items_per_page) {
@@ -178,14 +187,15 @@ function trigger_myScroll(offset) {
     });
 
     // In order to prevent seeing the "pull down to refresh" before the iScoll is trigger - the wrapper is located at left:-9999px and returned to left:0 after the iScoll is initiated
-    setTimeout(function() {
-        $('#wrapper').css({left:0});
+    setTimeout(function () {
+        $('#wrapper').css({left: 0});
     }, 100);
 }
 
 
-
-document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+document.addEventListener('touchmove', function (e) {
+    e.preventDefault();
+}, false);
 
 
 window.onload = function () {

@@ -6,23 +6,16 @@
  */
 
 var creatIndex = {
-    getList : function (pagesize, pageindex, listtype, catalogid ) {
-        var url = '?pagesize=' + pagesize + '&' +
+    getList : function (pageindex ,fn) {
+        var url = '?pagesize=10&' +
             'pageindex=' + pageindex + '&' +
-            'listtype=' + listtype + '&' +
-            'catalogid=' + catalogid;
-        api.getqrcodelist(url,function (data) {
-            console.log(data);
-        });
+            'listtype=0&' +
+            'catalogid=0';
+        api.getqrcodelist(url,fn);
     },
     add :function () {
-        var param = new FormData();
-        param.append("Content", "发放");
-        param.append("ContentType","Text(0)");
-        param.append("CataId","0");
-
         api.addqrcode(param,function (data) {
-            console.log('00',data);
+            console.log(data);
         });
     },
     del: function (id) {
@@ -44,23 +37,42 @@ var creatIndex = {
 
 
 }
-creatIndex.add();
-creatIndex.getList(10,1,0,0);
-function creatItem() {
-    var _htmlArr = [],
-        _item =
-            '<li>' +
-            '<i></i>' +
-            '<p><span>文本</span><span>2016-02-24</span></p>' +
-            '<p>二维码作为图书内容的延展，可以以音频、视频等形式呈现书中没有的内容，形成与纸质图书的有益互补。</p>' +
-            '<div class="bar">' +
-            '<a>编辑</a>' +
-            '<a>删除</a>' +
-            '</div>' +
-            '</li>';
-    for(var i = 0; i < 10; i++){
-        _htmlArr.push(_item);
-    }
 
-    return _htmlArr.join('');
+function creatItem(parent,page) {
+    creatIndex.getList(page, function (data) {
+        console.log(data);
+        if(data.Success){
+            var _htmlArr = [];
+            console.log(data.Data.List[0]);
+            for (var i = 0; i < 10; i++) {
+                var val = data.Data.List[i];
+                var _item =
+                    '<li>' +
+                    '<i></i>' +
+                    '<p><span>文本</span><span>'+val.CreateTime.replace(/[T]/ig," ")+'</span></p>' +
+                    '<p>'+val.Content+'</p>' +
+                    '<div class="bar">' +
+                    '<a onclick="del('+val.Id+',this);">编辑</a>' +
+                    '<a onclick="del('+val.Id+',this);">删除</a>' +
+                    '</div>' +
+                    '</li>';
+                _htmlArr.push(_item);
+            }
+            parent.append(_htmlArr.join(''));
+        }  else {
+            tools.setGoLogin();
+        }
+
+    });
 }
+
+function del(id,el) {
+    api.delqrcode(id,function (data) {
+        if(data.Success){
+            $(el).parent().parent().remove();
+        } else {
+            tools.setGoLogin();
+        }
+    })
+}
+

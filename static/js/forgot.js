@@ -47,6 +47,7 @@ var forgot = function () {
                 })
             }
         } else if($_item.hasClass('forgot3')){
+            var _code = $_item.prev().find('input[name="code"]').val();
             var Password = $_item.find('input[name="Password"]').val();
             var RePassword = $_item.find('input[name="RePassword"]').val();
             if(!Password || !RePassword){
@@ -60,7 +61,7 @@ var forgot = function () {
                 _param.append('Password',Password);
                 _param.append('RePassword',RePassword);
                 _param.append('Account',account);
-                _param.append('Code',0);
+                _param.append('Code',_code);
                 api.modifypwd(_param, function (data) {
                     console.log(data);
                     if(data.Success){
