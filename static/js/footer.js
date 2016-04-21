@@ -11,7 +11,7 @@ widgt.footer = function() {
     var _infoTabHeight = $("#infoTab").outerHeight(true);
     var _harf = ($('#sortTab').outerHeight(true))/2;
 
-    setHeight();
+    //setHeight();
 
     var sortTab = $('#sortTab').find('li').on('click', function (event) {
         event.stopPropagation();
@@ -22,39 +22,78 @@ widgt.footer = function() {
         $('#creat').css('top', 'auto');
         $("#infoTab").height('auto');
         _infoTabHeight = $("#infoTab").outerHeight(true);
-        setHeight();
-    }).end().find('.bar').on('click', function () {
-        $(this).next().slideToggle(500)
-        setTimeout(function() {
-            setHeight();
-        }, 510);
+        //setHeight();
     });
+    bar();
+    function bar(){
+        $("#main").height($(window).height())
+        var mousex = 0, mousey = 0;
+        var divLeft, divTop;
+        $('#sortTab').find('.bar').mousedown(function(e)
+        {
+            var offset = $(this).offset();
+            console.log(offset);
+            divTop = parseInt(offset.top,10);
+            console.log(divTop);
+            mousey = e.pageY;
+            alert(mousey)
+            $(this).bind('mousemove',dragElement);
+        });
 
-    function setHeight() {
-        if(_infoTabHeight > _height -_barHeight){
-            _infoTabHeight = _height -_barHeight;
-            $("#infoTab").height(_infoTabHeight);
+        function dragElement(event)
+        {
+            var left = divLeft + (event.pageX - mousex);
+            var top = divTop + (event.pageY - mousey);
+            $(this).css(
+            {
+                'top' :  top + 'px',
+            });
+            return false;
         }
+        $(document).mouseup(function()
+        {
+            $('.dragMe').unbind('mousemove');
+        });
 
-        if($('#sortTab').find('ul').is(":visible")){
-            _barh = $('#sortTab').outerHeight(true);
-            var _h = _height - _barh -_btnheight;
 
-            if(_infoTabHeight+_btnheight > _h){
-                // if(_harf < _infoTabHeight){
-                //     $('#sortTab').css('bottom',-_harf+_barHeight/2+'px');
-                // }
-                $("#infoTab").height(_h);
-                $('#creat').css('top',_h+'px');
-            }else{
-                $('#creat').css('top', 'auto');
-                $("#infoTab").height(_infoTabHeight);
-            }
-        } else {
-            $('#creat').css('top', 'auto');
-            $("#infoTab").height(_infoTabHeight);
-        }
+
+
+
+        // $('#sortTab').find('.bar').on('click', function () {
+        //     $(this).next().slideToggle(500)
+        //     setTimeout(function() {
+        //         setHeight();
+        //     }, 510);
+        // });
     }
+
+
+
+    // function setHeight() {
+    //     if(_infoTabHeight > _height -_barHeight){
+    //         _infoTabHeight = _height -_barHeight;
+    //         $("#infoTab").height(_infoTabHeight);
+    //     }
+
+    //     if($('#sortTab').find('ul').is(":visible")){
+    //         _barh = $('#sortTab').outerHeight(true);
+    //         var _h = _height - _barh -_btnheight;
+
+    //         if(_infoTabHeight+_btnheight > _h){
+    //             // if(_harf < _infoTabHeight){
+    //             //     $('#sortTab').css('bottom',-_harf+_barHeight/2+'px');
+    //             // }
+    //             $("#infoTab").height(_h);
+    //             $('#creat').css('top',_h+'px');
+    //         }else{
+    //             $('#creat').css('top', 'auto');
+    //             $("#infoTab").height(_infoTabHeight);
+    //         }
+    //     } else {
+    //         $('#creat').css('top', 'auto');
+    //         $("#infoTab").height(_infoTabHeight);
+    //     }
+    // }
 
     // .addEventListener('touchstart', function(event) {
 
