@@ -8,6 +8,8 @@ var widgt = window.widgt || {};
 
 widgt.main = function () {
     var $_clone;
+
+
     $(document).on('click', '.add', function (event) {
         event.stopPropagation();
         var $_parent = $(this).parent();
@@ -68,7 +70,6 @@ widgt.main = function () {
         $("#grade_look").empty().qrcode(options);
 
     };
-
     var creat = {
         check : function () {
             var $_form = $('#infoTab').find('.info-form.on'),
@@ -97,7 +98,6 @@ widgt.main = function () {
             } else {
                 tools.layer.toast('发生异常!');
             }
-
             return _content;
 
         }
