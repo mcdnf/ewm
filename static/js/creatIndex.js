@@ -52,7 +52,7 @@ function creatItem(parent,page) {
                     '<p><span>文本</span><span>'+val.CreateTime.replace(/[T]/ig," ")+'</span></p>' +
                     '<p>'+val.Content+'</p>' +
                     '<div class="bar">' +
-                    '<a onclick="del('+val.Id+',this);">编辑</a>' +
+                    '<a onclick="edit('+val.Id+','+val.Content+');">编辑</a>' +
                     '<a onclick="del('+val.Id+',this);">删除</a>' +
                     '</div>' +
                     '</li>';
@@ -74,5 +74,15 @@ function del(id,el) {
             tools.setGoLogin();
         }
     })
+}
+
+function edit(id,text) {
+    var editewm ={
+        "Content": text,
+        "ContentType": "Text(0)",
+        "CataId": id
+    };
+    sessionStorage.setItem('editewm',editewm);
+    tools.goPage(index);
 }
 

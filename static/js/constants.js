@@ -10,6 +10,6 @@ var website = {
     qrcode: "http://personal.api.2wm.wj/qrcode/"
 };
 
-var pageUrl = "http://mobile.2wm.wj/page/";
+var pageUrl = "http://mobile.2wm.wj/";
 
 

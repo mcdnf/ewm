@@ -68,7 +68,8 @@ var tools = window.tools || {
             }
         },
         goPage : function(pageName){
-            window.location.href = pageUrl + pageName + '.html';
+            var url = pageName !== 'index' ? 'page/'  : '';
+            window.location.href = pageUrl + url + pageName + '.html';
         },
         getPageName : function () {
             var strUrl= window.location.href;
