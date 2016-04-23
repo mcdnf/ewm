@@ -8,7 +8,8 @@ var website = {
     auth: "http://account.api.2wm.wj/auth/",
     //二维码接口
     qrcode: "http://personal.api.2wm.wj/qrcode/",
-    personal : "http://personal.api.2wm.wj"
+    userurlcode : "http://personal.api.2wm.wj/userurlcode/",
+    template : "http://personal.api.2wm.wj/template/"
 };
 
 var pageUrl = "http://mobile.2wm.wj/";

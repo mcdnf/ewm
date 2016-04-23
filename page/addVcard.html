@@ -15,24 +15,34 @@
         </div>
     </div>
     <!-- @require static/css/main.less -->
-    <div id="main" class="main add-form">
-        <div class="input-box">
-            <span>姓名</span>
-            <input type="text" placeholder="请输入姓名">
+    <!-- @require static/js/addVcard.js -->
+    <div id="main" class="main">
+        <form id="addCard" class="add-form">
+            <div class="input-box">
+                <span>姓名</span>
+                <input type="text" placeholder="请输入姓名">
+            </div>
+            <div class="input-box">
+                <span>单位</span>
+                <input type="text" placeholder="请输入单位">
+            </div>
+            <div class="input-box">
+                <span>手机</span>
+                <input type="text" placeholder="请输入手机号码">
+            </div>
+            <a href="addVcardMore.html" class="btn full">我还有更多资料</a>
+        </form>
+        <div id="selectTpl">
+            <div class="swiper-container">
+                <div class="swiper-wrapper"></div>
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
-       <div class="input-box">
-           <span>单位</span>
-           <input type="text" placeholder="请输入单位">
-       </div>
-       <div class="input-box">
-           <span>手机</span>
-           <input type="text" placeholder="请输入手机号码">
-       </div>
-       <a href="addVcardMore.html" class="btn full">我还有更多资料</a>
     </div>
     <div id="footer" class="footer select-tpl">
-        <a href="selectTpl.html">选择模板</a>
+        <a>选择模板</a>
     </div>
+
 </div>
 </body>
 </html>

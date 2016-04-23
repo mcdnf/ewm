@@ -2,36 +2,61 @@
  * @require /static/plugin/jquery-2.2.0.min.js
  * @require /static/plugin/iscroll-probe.js
  * @require /static/js/myScroll.js
+ * @require /static/js/api.js
  */
 
 
-var param = {
-    "Code": "string",
-    "CatalogId": 0,
-    "CodeType": "网址导航(1)",
-    "Address": "string",
-    "AddressMark": "string",
-    "Company": "string",
-    "Email": "string",
-    "Fax": "string",
-    "headImg": "string",
-    "backImg": "string",
-    "Mobile": "string",
-    "Weibo": "string",
-    "PersonNote": "string",
-    "QQ": "string",
-    "QQUrl": "string",
-    "Station": "string",
-    "Tel": "string",
-    "Weixin": "string",
-    "WeixinUrl": "string",
-    "TemplateCode": "string",
-    "TemplateNote": "string",
-    "filePath": "string",
-    "Note": "string",
-    "Url": "string",
-    "Content": "string"
+$('#header').on('click','.add',function () {
+    goAdd();
+});
+
+$('#header').on('click','.h-left',function () {
+    goList();
+});
+$('#header').on('click','.h-right>a.h-btn',function () {
+    var param = new FormData($('#addUrl')[0]);
+    api.addurlcode(param,function (data) {
+        console.log(data);
+        if(data.Success){
+            goList();
+        }
+    })
+});
+
+$('#addItem').on('click',function () {
+    var clone = $(this).prev().clone();
+    $(this).prev().after(clone);
+});
+
+$('#addUrl').on('click','.del',function () {
+    $(this).parent().remove();
+});
+
+
+
+function goAdd(name,text) {
+    var $_h = $('#header');
+    $('#wrapper').hide();
+    $('#addUrl').show();
+    $_h.find('.h-center').text('网址导航').end()
+        .find('.h-left>a').text('取消').addClass('h-btn').end()
+        .find('.h-right>a').removeClass('add').text('保存').addClass('h-btn');
 }
+function goList(name,text) {
+    var $_h = $('#header');
+    $('#wrapper').show();
+    $('#addUrl').hide();
+    $_h.find('.h-center').text('网址导航').end()
+        .find('.h-left>a').text('').removeClass('h-btn').end()
+        .find('.h-right>a').addClass('add').text('').removeClass('h-btn');
+}
+
+
+var url ='pagesize=10&'+
+    'pageindex=1&codetype=1&catalogid=0';
+api.geturlcodedatalist(url, function (data) {
+    console.log(data);
+});
 
 
 function creatItem(parent,page) {
@@ -70,7 +95,7 @@ function creatItem(parent,page) {
     });
 }
 
-function creatItem(pageindex) {
+function creatItem(parent,pageindex) {
     var _htmlArr = [],
         _item =
             '<li>' +
@@ -91,5 +116,5 @@ function creatItem(pageindex) {
         _htmlArr.push(_item);
     }
 
-    return _htmlArr.join('');
+    parent.append(_htmlArr.join(''));
 }

@@ -102,15 +102,28 @@ var api ={
     },
     addurlcode : function (param, callBackFn) {
         tools.ajax.post(
-            website.personal + 'userurlcode/set/',
+            website.userurlcode + 'set/',
             param,
             callBackFn
         );
     },
-    geturlcodedatalist : function (param, callBackFn) {
-        tools.ajax.post(
-            website.personal + 'userurlcode/geturlcodedatalist/',
-            param,
+    geturlcodedatalist : function (url, callBackFn) {
+        tools.ajax.get(
+            website.userurlcode + 'geturlcodedatalist/' + url,
+            callBackFn
+        );
+    },
+    //获取模板列表
+    gettemplatelist : function (url, callBackFn) {
+        tools.ajax.get(
+            website.template + 'gettemplatelist/' + url,
+            callBackFn
+        );
+    },
+    //获取模板信息
+    gettemplate : function (url, callBackFn) {
+        tools.ajax.get(
+            website.template + 'gettemplate/' + url,
             callBackFn
         );
     }

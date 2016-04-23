@@ -11,7 +11,7 @@
             <a>静态二维码</a>
         </div>
         <div class="h-right">
-            <a href="addUrl.html" class="add"></a>
+            <a class="add"></a>
         </div>
     </div>
     <!-- @require static/css/main.less -->
@@ -22,6 +22,36 @@
 
             </div>
         </div>
+        <form class="url-form" id="addUrl">
+            <input name="CatalogId" type="hidden" value="0">
+            <input name="CodeType" type="hidden" value="1">
+            <div class="url-item">
+                <div class="item-hd">
+                    <div class="input-box">
+                        <span>标题：</span>
+                        <input name="Note" type="text" placeholder="请输入标题">
+                    </div>
+                    <div class="input-box">
+                        <span>网址：</span>
+                        <input name="Url" type="text" placeholder="如http://2wm.cn">
+                    </div>
+                </div>
+            </div>
+            <div class="url-item item-new">
+                <div class="item-hd">
+                    <div class="input-box">
+                        <span>标题：</span>
+                        <input name="Note" type="text" placeholder="请输入标题">
+                    </div>
+                    <div class="input-box">
+                        <span>网址：</span>
+                        <input name="Url" type="text" placeholder="如http://2wm.cn">
+                    </div>
+                </div>
+                <div class="item-bd del" ></div>
+            </div>
+            <a id="addItem" class="btn full">新增一个</a>
+        </form>
     </div>
     <div id="footer" class="footer">
         <link rel="import" href="/static/widget/footer/footer1.html?__inline">
