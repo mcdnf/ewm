@@ -29,7 +29,7 @@ var touch = function(btnId){
 	function slide(startY,endY){
 		var Y = endY - startY;		
         var new_sortTab_h = old_h - Y;
-        if(old_sortTab_h>=new_sortTab_h && old_sortTab_h/2+15<=new_sortTab_h){
+        if(old_sortTab_h+4>=new_sortTab_h && old_sortTab_h/2+15<=new_sortTab_h){
         	$("#sortTab").height(new_sortTab_h);
         	index_animate();
         }
