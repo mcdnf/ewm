@@ -92,6 +92,17 @@ var tools = window.tools || {
                 $(el).val(_text.substring(0,300));
                 _textConut.text(num);
             }
+        },
+        setInputVal : function (form,data){
+            $.each(data,function (k,v) {
+                form.find('[name="'+k+'"]').val(v)
+                    .next('.text-count').find('span').text(v.length);
+            })
+
+
+        },
+        setOn : function (el) {
+            el.addClass('on').siblings().removeClass('on')
         }
     };
 

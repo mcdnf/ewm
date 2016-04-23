@@ -99,7 +99,20 @@ var api ={
             website.qrcode + 'getqrcodelist/' + url,
             callBackFn
         );
+    },
+    addurlcode : function (param, callBackFn) {
+        tools.ajax.post(
+            website.personal + 'userurlcode/set/',
+            param,
+            callBackFn
+        );
+    },
+    geturlcodedatalist : function (param, callBackFn) {
+        tools.ajax.post(
+            website.personal + 'userurlcode/geturlcodedatalist/',
+            param,
+            callBackFn
+        );
     }
-    //id 4
-    
+
 };

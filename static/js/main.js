@@ -9,6 +9,52 @@ var widgt = window.widgt || {};
 widgt.main = function () {
     var $_clone;
 
+    //编辑时切换并赋值
+    edit();
+    function edit() {
+        var editewm = sessionStorage.getItem('editewm'),
+            index,
+            $_form;
+        if(!editewm)  return;
+        editewm = JSON.parse(editewm);
+        console.log(editewm);
+        index = editewm.ContentType < 3 ? editewm.ContentType : editewm.ContentType -1;
+
+        $_form = $('#infoTab').find('.info-form').eq(index);
+        var _arr,_data;
+        switch (editewm.ContentType){
+            case 0 :
+                _data = {Content1 : editewm.Content}
+                tools.setOn($_form);
+                tools.setInputVal($_form,_data);
+                break;
+            case 1 :
+                _arr = editewm.Content.split(':');
+                _data = {Content1 : _arr[2],
+                    tel : _arr[1]
+                };
+                tools.setOn($_form);
+                tools.setInputVal($_form,_data);
+                break;
+            case 2 :
+                // _arr = editewm.Content.split(';');
+                // _arr[0] = _arr[0].substring(7,_arr[0].length - 7);
+                // _arr.join(',');
+                // _data = JSON.parse(_arr);
+                // tools.setOn($_form);
+                tools.setInputVal($_form,_data);
+                break;
+            case 4 :
+                break;
+            case 5 :
+                break;
+            case 6 :
+                break;
+            default :
+                break;
+
+        }
+    }
 
     $(document).on('click', '.add', function (event) {
         event.stopPropagation();
@@ -26,26 +72,23 @@ widgt.main = function () {
         event.stopPropagation();
         //点击生成按钮
 
-        creat.check();
         var text = $(this).parent().find('textarea').val(),
-            _content = creat.check(),
+            _creat = creat.check(),
             isLogin = sessionStorage.getItem('isLogin');
         if(isLogin){
             if(_content){
                 console.log(_content);
-                var _param = new FormData();
-                _param.append("Content",_content);
-                _param.append("ContentType","0");
-                _param.append("CataId","0");
+                var _param = new FormData(_creat.form);
+                _param.append("Content",_creat.Content);
                 api.addqrcode(_param,function (data) {
                     tools.layer.toast('二维码生成成功!');
-                    console.log(data,0);
+                    tools.goPage('creatIndex');
                 });
             } else {
                 tools.layer.toast('请按照格式输入内容!');
             }
         } else {
-            ewmStyle(_content);
+            ewmStyle(_creat.Content);
             $('#createwm-box').show();
             $('#footer').hide();
         }
@@ -73,7 +116,7 @@ widgt.main = function () {
     var creat = {
         check : function () {
             var $_form = $('#infoTab').find('.info-form.on'),
-                _textarea = $_form.find('textarea[name="Content"]').val() || "";
+                _textarea = $_form.find('textarea[name="Content1"]').val() || "";
 
             if($_form.hasClass('text') && _textarea){
                 _content = _textarea;
@@ -98,7 +141,10 @@ widgt.main = function () {
             } else {
                 tools.layer.toast('发生异常!');
             }
-            return _content;
+            return {
+                Content : _content,
+                form : $('#infoTab').find('.info-form.on')[0]
+            };
 
         }
     }

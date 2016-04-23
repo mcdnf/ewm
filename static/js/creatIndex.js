@@ -45,20 +45,26 @@ function creatItem(parent,page) {
             var _htmlArr = [];
             console.log(data.Data.List[0]);
             for (var i = 0; i < 10; i++) {
-                var val = data.Data.List[i];
-                var _item =
+                var val = data.Data.List[i],
+                    _type = config.ContentType[val.ContentType],
+                    item = {
+                        ContentType :  val.ContentType,
+                        Content : val.Content,
+                        CataId : val.Id
+                    };
+                var $_item = $(
                     '<li>' +
                     '<i></i>' +
-                    '<p><span>文本</span><span>'+val.CreateTime.replace(/[T]/ig," ")+'</span></p>' +
+                    '<p><span>'+_type+'</span><span>'+val.CreateTime.replace(/[T]/ig," ")+'</span></p>' +
                     '<p>'+val.Content+'</p>' +
                     '<div class="bar">' +
-                    '<a onclick="edit('+val.Id+','+val.Content+');">编辑</a>' +
-                    '<a onclick="del('+val.Id+',this);">删除</a>' +
+                    '<a onclick="edit(this);">编辑</a>' +
+                    '<a onclick="del(this);">删除</a>' +
                     '</div>' +
-                    '</li>';
-                _htmlArr.push(_item);
+                    '</li>')
+                    .data('item',item)
+                    .appendTo(parent);
             }
-            parent.append(_htmlArr.join(''));
         }  else {
             tools.setGoLogin();
         }
@@ -66,8 +72,9 @@ function creatItem(parent,page) {
     });
 }
 
-function del(id,el) {
-    api.delqrcode(id,function (data) {
+function del(el) {
+    var val = $(el).parent().parent().data('item');
+    api.delqrcode(val.Id,function (data) {
         if(data.Success){
             $(el).parent().parent().remove();
         } else {
@@ -76,13 +83,9 @@ function del(id,el) {
     })
 }
 
-function edit(id,text) {
-    var editewm ={
-        "Content": text,
-        "ContentType": "Text(0)",
-        "CataId": id
-    };
-    sessionStorage.setItem('editewm',editewm);
-    tools.goPage(index);
+function edit(el) {
+    var editewm = $(el).parent().parent().data('item');
+    sessionStorage.setItem('editewm',JSON.stringify(editewm));
+     tools.goPage('index');
 }
 
