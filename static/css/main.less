@@ -2,7 +2,12 @@
 * @require '/static/css/common.less'
 */
 @import (reference) 'common.less';
-
+.benSlide{
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+}
 .main {
   height: 100%;
   .sort-tab{
@@ -85,11 +90,10 @@
     }
   }
   //首页布局
-  .txt_box{overflow-y:auto;}
+
   .home_box{ 
-    background: #fff; 
     position: relative;
-    overflow: hidden;
+    overflow-y:auto;
   }
   .home_nav_pos{ 
     position: absolute; 
@@ -97,21 +101,19 @@
     width: 100%;
   }
   .home_nav{
-    height: 150px;
+    //height: 190px;
     overflow: hidden;
   }
-  .tag_btn{
-    height: 26px; 
-    background: #000;
-    overflow: hidden;
-  }
+
   //首页布局结束
   #infoTab{
     overflow-y: auto;
     +.creat{
-      height: 3rem;
-      position: absolute;
-      right: 1.5rem;
+      height: 60px;
+      .btn{
+        float: right;
+        margin: 11px 15px;
+      }
     }
   }
   .info-form {
