@@ -50,7 +50,7 @@ function creatItem(parent,page) {
                     item = {
                         ContentType :  val.ContentType,
                         Content : val.Content,
-                        CataId : val.Id
+                        Id : val.Id
                     };
                 var $_item = $(
                     '<li>' +

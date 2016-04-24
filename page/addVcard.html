@@ -17,20 +17,78 @@
     <!-- @require static/css/main.less -->
     <!-- @require static/js/addVcard.js -->
     <div id="main" class="main">
-        <form id="addCard" class="add-form">
-            <div class="input-box">
-                <span>姓名</span>
-                <input type="text" placeholder="请输入姓名">
+        <form class="add-form" enctype="multipart/form-data" id="addCard">
+            <input  name="Code" type="hidden" value="">
+            <input  name="CodeType" type="hidden" value="2">
+            <input  name="headImg" type="hidden" value="">
+            <input  name="backImg" type="hidden" value="">
+            <input  name="CatalogId" type="hidden" value="">
+            <input  name="TemplateCode" type="hidden" value="default">
+            <input  name="TemplateNote" type="hidden" value="">
+            <div class="add-head hide">
+                <div class="head-hd hide">
+                    <img src="../static/img/p16.png" alt="">
+                </div>
+                <div class="head-bd">
+                    <div class="input-box">
+                        <span>姓名</span>
+                        <input type="text" name="CardName" placeholder="请输入姓名">
+                    </div>
+                    <div class="input-box">
+                        <span>单位</span>
+                        <input type="text" name="Company" placeholder="请输入单位">
+                    </div>
+                    <div class="input-box hide">
+                        <span>职位</span>
+                        <input type="text" name="Station" placeholder="请输入职位">
+                    </div>
+                </div>
             </div>
-            <div class="input-box">
-                <span>单位</span>
-                <input type="text" placeholder="请输入单位">
+            <div class="input-box hide">
+                <span>电话</span>
+                <input type="tel" name="Tel" placeholder="如:010-33214567-321">
+            </div>
+            <div class="input-box hide">
+                <span>电话</span>
+                <input type="tel" name="Tel" placeholder="如:010-33214567-321">
             </div>
             <div class="input-box">
                 <span>手机</span>
-                <input type="text" placeholder="请输入手机号码">
+                <input type="tel" name="Mobile" placeholder="请输入手机号码">
             </div>
-            <a href="addVcardMore.html" class="btn full">我还有更多资料</a>
+            <a id="addVcardMore" class="btn full">我还有更多资料</a>
+            <div class="input-box hide">
+                <span>传真</span>
+                <input type="tel" name="Fax" placeholder="请输入传真号码">
+            </div>
+            <div class="input-box hide">
+                <span>邮箱</span>
+                <input type="text hide" name="Email" placeholder="请输入邮箱">
+            </div>
+            <div class="input-box hide">
+                <span>网址</span>
+                <input type="text" name="PersonWeb" placeholder="请输入网址">
+            </div>
+            <div class="input-box hide">
+                <span>微博</span>
+                <input type="text" name="Weibo" placeholder="请输入微博">
+            </div>
+            <div class="input-box hide">
+                <span>QQ</span>
+                <input type="text" name="QQ" placeholder="请输入QQ">
+            </div>
+            <div class="input-box hide">
+                <span>微信</span>
+                <input type="text" name="Weixin" placeholder="请输入微信">
+            </div>
+            <div class="input-box hide">
+                <span>地址</span>
+                <input type="text" name="Address" placeholder="请输入地址">
+            </div>
+            <div class="input-box hide">
+                <span>说明</span>
+                <input type="text" name="PersonNote" placeholder="请输入说明">
+            </div>
         </form>
         <div id="selectTpl">
             <div class="swiper-container">

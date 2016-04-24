@@ -25,26 +25,21 @@ widgt.header = function () {
             });
         }
     });
-    $('#header').on('click', '.menu-bg>ul>li>ul>li:first-child', function (event) {
-        event.stopPropagation();
-        $(this).parent().animate({
-            right : '-8rem',
-        }, 1000, function() {
-        });
-
-    });
+    // $('#header').on('click', '.menu-bg>ul>li>ul>li:first-child', function (event) {
+    //     event.stopPropagation();
+    //     $(this).parent().animate({
+    //         right : '-8rem',
+    //     }, 1000, function() {
+    //     });
+    //
+    // });
+    var isLogin = sessionStorage.getItem('isLogin');
+    if(isLogin) {
+        $('#header').find('.back').show();
+    } else {
+        $('#header').find('.back').hide();
+    }
 }
 
 widgt.header();
 
-widgt.hide = function (t) {
-    //隐藏头部框架弹出
-    if(t !== "header") $('#header').find('.menu-bg>ul').slideUp(500);
-
-    //隐藏底部菜单弹出
-    if(t !== "footer") $('#footer').find('.item>ul').slideUp(500);
-}
-
-$(document).on('click', function () {
-    widgt.hide();
-});

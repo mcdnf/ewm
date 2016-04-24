@@ -14,18 +14,19 @@ widgt.main = function () {
     function edit() {
         var editewm = sessionStorage.getItem('editewm'),
             index,
-            $_form;
+            $_form,
+            $_item;
         if(!editewm)  return;
         editewm = JSON.parse(editewm);
         console.log(editewm);
         index = editewm.ContentType < 3 ? editewm.ContentType : editewm.ContentType -1;
-
         $_form = $('#infoTab').find('.info-form').eq(index);
+        $_item = $('#sortTab').find('li').eq(index);
         var _arr,_data;
         switch (editewm.ContentType){
             case 0 :
                 _data = {Content1 : editewm.Content}
-                tools.setOn($_form);
+                tools.setOn($_form,$_item);
                 tools.setInputVal($_form,_data);
                 break;
             case 1 :
@@ -33,18 +34,30 @@ widgt.main = function () {
                 _data = {Content1 : _arr[2],
                     tel : _arr[1]
                 };
-                tools.setOn($_form);
+                tools.setOn($_form,$_item);
                 tools.setInputVal($_form,_data);
                 break;
             case 2 :
-                // _arr = editewm.Content.split(';');
-                // _arr[0] = _arr[0].substring(7,_arr[0].length - 7);
-                // _arr.join(',');
-                // _data = JSON.parse(_arr);
-                // tools.setOn($_form);
+                _arr = editewm.Content.split(';');
+                console.log(_arr);
+                _data = {};
+                $.each(_arr,function (k,v) {
+                    var ite = v.split(':');
+                    if(k === 0){
+                        _data[ite[1]] = ite[2];
+                    } else {
+                        _data[ite[0]] = ite[1];
+                    }
+                });
+
+                console.log(_data);
+                tools.setOn($_form,$_item);
                 tools.setInputVal($_form,_data);
                 break;
             case 4 :
+                _data = {Content1 : editewm.Content}
+                tools.setOn($_form,$_item);
+                tools.setInputVal($_form,_data);
                 break;
             case 5 :
                 break;
@@ -80,10 +93,18 @@ widgt.main = function () {
                 console.log(_content);
                 var _param = new FormData(_creat.form);
                 _param.append("Content",_creat.Content);
-                api.addqrcode(_param,function (data) {
-                    tools.layer.toast('二维码生成成功!');
-                    tools.goPage('creatIndex');
-                });
+                if(sessionStorage.getItem('editewm')){
+                    api.addqrcode(_param,function (data) {
+                        tools.layer.toast('修改成功!');
+                        sessionStorage.removeItem('editewm');
+                        tools.goPage('creatIndex');
+                    });
+                } else {
+                    api.addqrcode(_param,function (data) {
+                        tools.layer.toast('二维码生成成功!');
+                        tools.goPage('creatIndex');
+                    });
+                }
             } else {
                 tools.layer.toast('请按照格式输入内容!');
             }

@@ -4,18 +4,47 @@
  * @require /static/plugin/swiper/swiper-3.2.7.jquery.min.js
  */
 
+var editVcard = sessionStorage.getItem('editVcard');
+
+if(editVcard){
+    var $card = $('#addCard');
+    editVcard = JSON.parse(editVcard);
+    $('#addVcardMore').remove();
+    $card.find('.hide').removeClass('hide');
+    tools.setInputVal($card,editVcard.Content);
+}
+
 $('#header').on('click','.h-left',function () {
-    tools.goPage('addVcard');
+    if($('#selectTpl').is(':visible')){
+        $('#addCard').show();
+        $('#selectTpl').hide();
+        $('#footer').show();
+    } else {
+        tools.goPage('vcardList');
+    }
 });
 $('#header').on('click','.h-right>a.h-btn',function () {
-    var param = new FormData($('#addUrl')[0]);
-    api.addurlcode(param,function (data) {
-        console.log(data);
-        if(data.Success){
-            tools.goPage('addVcard');
-        }
-    })
+    if($('#selectTpl').is(':visible')){
+        var Code = $('#selectTpl').find('.swiper-slide-active').data('Code');
+        $('#addCard').find('input[name="TemplateCode"]').val(Code);
+        $('#addCard').show();
+        $('#selectTpl').hide();
+        $('#footer').show();
+    } else {
+        var param = new FormData($('#addCard')[0]);
+        api.addurlcode(param,function (data) {
+            console.log(data);
+            if(data.Success){
+                tools.goPage('vcardList');
+            }
+        });
+    }
 });
+
+$('#main').on('click','#addVcardMore',function () {
+    $(this).remove();
+    $('#addcard').find('.hide').removeClass('hide');
+})
 
 $('#footer').on('click',function () {
     api.gettemplatelist('?type=0',function (data) {
@@ -25,12 +54,10 @@ $('#footer').on('click',function () {
             $('#footer').hide();
             var itemArr = $('#selectTpl').find('.swiper-wrapper');
             $.each(data.Data,function (k,v) {
-                itemArr.append(
-                    '<div class="swiper-slide">' +
+                var $slide = $('<div class="swiper-slide">' +
                     '    <img src="'+v.Cover+'" alt="" width="100%">' +
-                    '</div>'
-                );
-
+                    '</div>').data('Code',v.Code);
+                itemArr.append($slide);
             });
 
             var mySwiper = new Swiper ('.swiper-container', {
@@ -41,15 +68,6 @@ $('#footer').on('click',function () {
             });
         }
         console.log(data);
-        // BackImageList: null
-        // Code: "default"
-        // Cover: "http://utest.rs1.2wm.cn/manage/phone/tpl/default/cover.png"
-        // CreateTime: "2016-01-01T00:00:00"
-        // DeleteTime: "0001-01-01T00:00:00"
-        // Id: 3
-        // Name: "简约商务"
-        // Note: "头像尺寸为266px*266px,背景图尺寸为640px*376px"
-        // Type: 0
     })
 
 });

@@ -1,5 +1,5 @@
 /*
- * @require /static/plugin/jquery-2.2.0.min.js
+ * @require /static/js/api.js
  */
 
 var widgt = window.widgt || {};
@@ -25,33 +25,6 @@ widgt.footer = function() {
         //setHeight();
         index_animate();
     });
-    // function setHeight() {
-    //     if(_infoTabHeight > _height -_barHeight){
-    //         _infoTabHeight = _height -_barHeight;
-    //         $("#infoTab").height(_infoTabHeight);
-    //     }
-
-    //     if($('#sortTab').find('ul').is(":visible")){
-    //         _barh = $('#sortTab').outerHeight(true);
-    //         var _h = _height - _barh -_btnheight;
-
-    //         if(_infoTabHeight+_btnheight > _h){
-    //             // if(_harf < _infoTabHeight){
-    //             //     $('#sortTab').css('bottom',-_harf+_barHeight/2+'px');
-    //             // }
-    //             $("#infoTab").height(_h);
-    //             $('#creat').css('top',_h+'px');
-    //         }else{
-    //             $('#creat').css('top', 'auto');
-    //             $("#infoTab").height(_infoTabHeight);
-    //         }
-    //     } else {
-    //         $('#creat').css('top', 'auto');
-    //         $("#infoTab").height(_infoTabHeight);
-    //     }
-    // }
-
-    // .addEventListener('touchstart', function(event) {
 
     $('#footer').on('click','.item',function (event) {
         event.stopPropagation();
@@ -64,7 +37,24 @@ widgt.footer = function() {
         widgt.hide("footer");
     });
 
-
+    var isLogin = sessionStorage.getItem('isLogin');
+    if(isLogin){
+        $('#login').text('退出');
+    } else {
+        $('#login').text('登录');
+    }
+    $('#login').on('click',function () {
+        if(isLogin){
+            api.outlogin(function (data) {
+                if(data.Success){
+                    $('#login').text('登录');
+                    sessionStorage.setItem('isLogin',false)
+                }
+            });
+        } else {
+            tools.setGoLogin();
+        }
+    });
 }
 
 widgt.footer();

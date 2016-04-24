@@ -212,7 +212,17 @@
       .head-bd{
         float: right;
       }
+      &.hide{
+        display: block;
+        .head-bd{
+          width: 100%;
+          float: left;
+        }
+      }
 
+    }
+    .hide{
+      display: none;
     }
   }
   .url-form {
@@ -566,3 +576,107 @@
   }
 
 }
+
+.layui-layer-page {
+  .layui-layer-title {
+    background: @white;
+    font-size: 1.2rem;
+    height: 3rem;
+    padding: 0 1rem;
+    line-height: 3rem;
+  }
+  .layui-layer-content {
+    min-height: 6rem;
+    text-align: center;
+    p {
+      line-height: 2.5rem;
+      &.row {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        span:first-child {
+          display: inline-block;
+          width: 5rem;
+          text-align: right;
+        }
+        select,
+        input {
+          border: 1px solid @line-c;
+          width: 10rem;
+          padding: .2rem .6rem;
+        }
+        select {
+          -webkit-box-flex: 1;
+          -ms-flex: 1;
+        }
+        input {
+          color: @mc;
+        }
+      }
+    }
+    >.bdsharebuttonbox{
+      padding-left: 1rem;
+      padding-top:1.5rem;
+      .clearfix();
+      a {
+        width: 3rem;
+        height: 3rem;
+        line-height: 1rem;
+        margin: 0 1rem 0 0;
+        background-size: 2.95rem;
+        background-repeat: no-repeat;
+        background-position: center;
+        float: left;
+        text-indent: -100em;
+        overflow: hidden;
+        &.bds_sqq {
+          background-image: url(img/qq.png);
+        }
+        &.bds_weixin {
+          background-image: url(img/weixin.png);
+        }
+        &.bds_tsina {
+          background-image: url(img/sina.png);
+        }
+      }
+    }
+  }
+  .layui-layer-btn {
+    padding-botton: 1rem;
+    text-align: center;
+    a {
+      line-height: 1rem;
+      height: auto;
+      padding: .5rem 1rem;
+      margin: 0 .8rem;
+      border: none;
+      border-radius: .3rem;
+      color: @white;
+      &.layui-layer-btn0 {
+        background-color: @mc;
+      }
+      &.layui-layer-btn1 {
+        background-color: #8f8e8e;
+      }
+    }
+  }
+  .input-box {
+    position: relative;
+    line-height: 3rem;
+    text-align: center;
+    +.input-box {
+      border-top: 1px solid @line-c;
+    }
+    .input-file {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      opacity: .01;
+      filter: alpha(opacity=1);
+      cursor: pointer;
+      z-index: 1;
+    }
+  }
+}
+

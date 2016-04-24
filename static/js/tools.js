@@ -1,6 +1,7 @@
 /* @require /static/plugin/jquery-2.2.0.min.js
  * @require /static/plugin/layer/layer.js
  * @require /static/js/constants.js
+ * @require /static/plugin/uploadImg.js
  */
 
 var tools = window.tools || {
@@ -79,6 +80,7 @@ var tools = window.tools || {
             var strUrl= window.location.href;
             strUrl =  strUrl.split("/").pop().split(".").shift();
             sessionStorage.setItem('goLogin',strUrl);
+            sessionStorage.setItem('isLogin',false);
             tools.goPage('login');
         },
         textareaLimt : function (el,num) {
@@ -96,13 +98,54 @@ var tools = window.tools || {
         setInputVal : function (form,data){
             $.each(data,function (k,v) {
                 form.find('[name="'+k+'"]').val(v)
-                    .next('.text-count').find('span').text(v.length);
+                    .next('.text-count').find('span').text(v && v.length);
             })
 
 
         },
-        setOn : function (el) {
-            el.addClass('on').siblings().removeClass('on')
+        setOn : function (el1,el2) {
+            el1.addClass('on').siblings().removeClass('on');
+            el2.addClass('on').siblings().removeClass('on');
+        },
+        layer_getImg : function() {
+            var _content = "";
+            _content += '<ul>';
+            _content += '  <li class="input-box">从手机中选取';
+            _content += '    <input class="input-file" id="up" type="file" accept="image/*">';
+            _content += '  </li>';
+            _content += '  <li class="input-box" onclick="layer.closeAll();">取消</li>';
+            _content += '</ul>';
+
+            layer.open({
+                type: 1,
+                area: ['100%', 'auto'],
+                closeBtn: 0,
+                title: false,
+                shadeClose: true, //点击遮罩关闭
+                content: _content,
+                success: function(layero, index){
+                    $("#up").uploadPreview({ Img: "ImgPr", Width: 120, Height: 120 ,
+                        Callback : function(){
+                            layer.closeAll();
+                            var api;
+                            $('#ImgPr').Jcrop({
+                                minSize:[80,800],
+                                maxSize:[200,200],
+                                aspectRatio : 1,
+                                dragEdges : false,
+                                bgOpacity: 0.4,
+                                bgColor: 'black',
+                            },function(){
+                                api = this;
+                                var _h = $('#ImgPr').height()/2;
+                                var _w = $('#ImgPr').width()/2;
+                                api.setSelect([_w-75,_h-75,_w + 75, _h + 75]);
+                            });
+                        }
+                    });
+                }
+            });
+
         }
     };
 

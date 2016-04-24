@@ -1,4 +1,6 @@
-
+/*
+ * @require /static/plugin/jquery-2.2.0.min.js
+ **/
 
 //接口地址
 var website = {
@@ -26,4 +28,17 @@ var config = {
     }
 }
 
+
+var widgt = window.widgt || {};
+widgt.hide = function (t) {
+    //隐藏头部框架弹出
+    if(t !== "header") $('#header').find('.menu-bg>ul').slideUp(500);
+
+    //隐藏底部菜单弹出
+    if(t !== "footer") $('#footer').find('.item>ul').slideUp(500);
+}
+
+$(document).on('click', function () {
+    widgt.hide();
+});
 

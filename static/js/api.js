@@ -11,6 +11,13 @@ var api ={
             callBackFn
         );
     },
+    //退出
+    outlogin: function (callBackFn) {
+        tools.ajax.get(
+            website.auth + 'outlogin/?token=3987c6cccf514a3a8de6324731d8ff92',
+            callBackFn
+        );
+    },
     //请求用户信息
     getuser: function (callBackFn) {
         tools.ajax.get(
@@ -107,6 +114,13 @@ var api ={
             callBackFn
         );
     },
+    //删除
+    delurlcode : function (url, callBackFn) {
+        tools.ajax.get(
+            website.userurlcode + 'del/?code=' + url,
+            callBackFn
+        );
+    },
     geturlcodedatalist : function (url, callBackFn) {
         tools.ajax.get(
             website.userurlcode + 'geturlcodedatalist/' + url,
@@ -127,5 +141,6 @@ var api ={
             callBackFn
         );
     }
+    
 
 };

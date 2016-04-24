@@ -51,25 +51,63 @@ function goList(name,text) {
         .find('.h-right>a').addClass('add').text('').removeClass('h-btn');
 }
 
-function creatItem(parent,pageindex) {
-    var _htmlArr = [],
-        _item =
-            '<li>' +
-            '<i></i>' +
-            '<p><span>名片</span><span>2016-02-24</span></p>' +
-            '<div class="vcard">' +
-                '<img src="../static/img/p16.png">' +
-                '<dv class="vcard-bg"><p>董大宝</p><p>临时工</p><p>大宝有限公司</p></dv>' +
-            '</div>' +
-            '<div class="bar">' +
-            '<a>预览</a>' +
-            '<a href="addVcard.html">编辑</a>' +
-            '<a>删除</a>' +
-            '</div>' +
-            '</li>';
-    for(var i = 0; i < 10; i++){
-        _htmlArr.push(_item);
-    }
+function creatItem(parent,page) {
+    page = 1;
+    var url ='?pagesize=10&'+
+        'pageindex='+page+'&codetype=2&catalogid=0';
+    api.geturlcodedatalist(url, function (data) {
+        console.log(data);
+        if(data.Success){
+            var _htmlArr = [];
+            if(!data.Data){
+                return
+            }
+            for (var i = 0; i < data.Data.List.length; i++) {
+                var val = data.Data.List[i].ContentData,
+                    item = {
+                        Content : val,
+                        code : data.Data.List[i].StringCode
+                    };
+                var imgurl = val.HeadImg  ? val.HeadImg : "../static/img/p16.png";
+                var $_item = $(
+                    _item =
+                        '<li>' +
+                        '<i></i>' +
+                        '<p><span>名片</span><span>'+data.Data.List[i].CreateTime.replace(/[T]/ig," ")+'</span></p>' +
+                        '<div class="vcard">' +
+                        '<img src="'+ imgurl +'">' +
+                        '<dv class="vcard-bg"><p>'+val.CardName+'</p><p>'+val.Station+'</p><p>'+val.Company+'</p></dv>' +
+                        '</div>' +
+                        '<div class="bar">' +
+                        '<a href="http://User.2wm.wj/phone/sitenav-phone?Code='+data.Data.List[i].StringCode+'&UserId='+data.Data.List[i].UserId+'">预览</a>' +
+                        '<a onclick="edit(this)">编辑</a>' +
+                        '<a onclick="del(this)">删除</a>' +
+                        '</div>')
+                    .data('item',item)
+                    .appendTo(parent);
+            }
+        }  else {
+            tools.setGoLogin();
+        }
 
-    parent.append(_htmlArr.join(''));
+    });
+
+
+}
+function del(el) {
+    var val = $(el).parent().parent().data('item');
+    api.delurlcode(val.code,function (data) {
+        console.log(data);
+        if(data.Success){
+            $(el).parent().parent().remove();
+        } else {
+            tools.setGoLogin();
+        }
+    });
+}
+
+function edit(el) {
+    var editVcard = $(el).parent().parent().data('item');
+    sessionStorage.setItem('editVcard',JSON.stringify(editVcard));
+    tools.goPage('addVcard');
 }

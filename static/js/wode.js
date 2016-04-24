@@ -1,5 +1,10 @@
-// @require /static/js/api.js
-
+/*
+* @require /static/js/api.js
+* @require /static/plugin/uploadImg.js
+* @require /static/plugin/Jcrop-0.9.12/css/jquery.Jcrop.css
+* @require /static/plugin/Jcrop-0.9.12/js/jquery.Jcrop.min.js
+* @require /static/plugin/Jcrop-0.9.12/css/jquery.color.js
+* */
 var wode = function () {
     api.getuser(function (data) {
         console.log(data)
@@ -7,7 +12,7 @@ var wode = function () {
             sessionStorage.setItem('userID',data.Data.ID);
             $.each(data.Data,function (k,v) {
                 v = k === "Birthday" && v.split('T').shift() || v;
-                if(k === "Portrait") $('#' + k).find('img').attr('src',v);
+                if(k === "Portrait") $('#' + k).find('img').attr('src',v || '../static/img/p16.png');
                 else if(k === "Gender" && v) {
                     setGender(k,v);
                 }
@@ -29,7 +34,7 @@ var wode = function () {
         _naem = $_val.attr('id');
 
         if(_naem === "Gender") _value = $_val.data('Gender')
-        else if (_naem === "Portrait") _value = $_val.find('img').attr('src');
+
         else _value = $_val.text();
         $_h.find('.h-center').text(_span).end()
             .find('.h-left').show().end()
@@ -64,7 +69,7 @@ var wode = function () {
     function creatForme(name,value) {
         var $_forme = $('<form  enctype="multipart/form-data"></form>');
         if(name === "Portrait"){
-            $_forme.append('<input type="file" accept="image/*;capture=camera" name="Portrait" value="点击上传头像">');
+            $_forme.append('<div class="all"><img id="ImgPr" width="100%"/></div>');
         } else if(name === "Gender") {
             var ischeck = {
                 male : false,
@@ -79,9 +84,12 @@ var wode = function () {
                 $(this).parent().addClass('on').siblings().removeClass('on');
             });
         } else {
-            $_forme.append('<input type="' + (type || "text") + '" name="' + name + '" value="' + value + '">');
+            $_forme.append('<input type="text" name="' + name + '" value="' + value + '">');
         }
         $('#change').append($_forme);
+        if(name === "Portrait"){
+            tools.layer_getImg();
+        }
     }
     function back(name,text) {
         var $_h = $('#header');
@@ -103,7 +111,11 @@ var wode = function () {
             $('#' + id).text('女').data('Gender',v);
         }
     }
-}
 
+
+}
+function changeImg(el) {
+    console.log($(el));
+}
 wode();
 
