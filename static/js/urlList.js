@@ -104,7 +104,7 @@ function del(el) {
         if(data.Success){
             $(el).parent().parent().remove();
         } else {
-            // tools.setGoLogin();
+            tools.setGoLogin();
         }
     });
 }
@@ -112,7 +112,20 @@ function del(el) {
 function edit(el) {
     var Content = $(el).parent().parent().data('item');
     goAdd();
-    tools.setInputVal($('#addUrl'),JSON.parse(Content.Content));
+    var _note = $('#addUrl').find('input[name="Note"]');
+    var _url = $('#addUrl').find('input[name="Url"]');
+    if(JSON.parse(Content.Content).length > _note.length){
+        var $clone = $('#addUrl').find('.item-new').clone();
+        for(var i = 0; i < JSON.parse(Content.Content).length - _note.length; i++){
+            $('#addItem'.prev($clone));
+        }
+    }
+    _note = $('#addUrl').find('input[name="Note"]');
+    _url = $('#addUrl').find('input[name="Url"]');
+    $.each(JSON.parse(Content.Content),function (k,v) {
+        $(_note[k]).val(v.Note);
+        $(_url[k]).val(v.Url);
+    })
 
 
 }

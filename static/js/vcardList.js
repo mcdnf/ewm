@@ -10,18 +10,6 @@ $('#header').on('click','.add',function () {
     goAdd();
 });
 
-$('#header').on('click','.h-left',function () {
-    goList();
-});
-$('#header').on('click','.h-right>a.h-btn',function () {
-    var param = new FormData($('#addUrl')[0]);
-    api.addurlcode(param,function (data) {
-        console.log(data);
-        if(data.Success){
-            goList();
-        }
-    })
-});
 
 $('#addItem').on('click',function () {
     var clone = $(this).prev().clone();
@@ -34,7 +22,7 @@ $('#addUrl').on('click','.del',function () {
 
 
 
-function goAdd(name,text) {
+function goAdd() {
     var $_h = $('#header');
     $('#wrapper').hide();
     $('#addUrl').show();
@@ -42,7 +30,7 @@ function goAdd(name,text) {
         .find('.h-left>a').text('取消').addClass('h-btn').end()
         .find('.h-right>a').removeClass('add').text('保存').addClass('h-btn');
 }
-function goList(name,text) {
+function goList() {
     var $_h = $('#header');
     $('#wrapper').show();
     $('#addUrl').hide();
