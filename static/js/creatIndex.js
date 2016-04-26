@@ -42,9 +42,12 @@ function creatItem(parent,page) {
     creatIndex.getList(page, function (data) {
         console.log(data);
         if(data.Success){
-            var _htmlArr = [];
-            console.log(data.Data.List[0]);
-            for (var i = 0; i < 10; i++) {
+            if(!data.Data) {
+                tools.layer.toast('没有数据，快去添加数据');
+                tools.goPage('index');
+                return;
+            }
+            for (var i = 0; i < data.Data.List.length; i++) {
                 var val = data.Data.List[i],
                     _type = config.ContentType[val.ContentType],
                     item = {
@@ -73,19 +76,30 @@ function creatItem(parent,page) {
 }
 
 function del(el) {
-    var val = $(el).parent().parent().data('item');
-    api.delqrcode(val.Id,function (data) {
-        if(data.Success){
-            $(el).parent().parent().remove();
-        } else {
-            tools.setGoLogin();
+    layer.msg('您确定要删除吗？',
+        {
+            time: 20000, //20s后自动关闭
+            btn: ['确定', '取消'],
+            btn1: function () {
+                var val = $(el).parent().parent().data('item');
+                api.delqrcode(val.Id,function (data) {
+                    if(data.Success){
+                        $(el).parent().parent().remove();
+                    } else {
+                        tools.setGoLogin();
+                    }
+                })
+            },
+            btn2:function () {
+                
+            }
         }
-    })
+    );
 }
 
 function edit(el) {
     var editewm = $(el).parent().parent().data('item');
     sessionStorage.setItem('editewm',JSON.stringify(editewm));
-     tools.goPage('index');
+    tools.goPage('index');
 }
 

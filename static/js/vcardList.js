@@ -67,7 +67,7 @@ function creatItem(parent,page) {
                         '<dv class="vcard-bg"><p>'+val.CardName+'</p><p>'+val.Station+'</p><p>'+val.Company+'</p></dv>' +
                         '</div>' +
                         '<div class="bar">' +
-                        '<a href="http://User.2wm.wj/phone/sitenav-phone?Code='+data.Data.List[i].StringCode+'&UserId='+data.Data.List[i].UserId+'">预览</a>' +
+                        '<a href="http://User.2wm.wj/phone/GET /tpl/"+val.TemplateCode+"/index.html?Code='+data.Data.List[i].StringCode+'&UserId='+data.Data.List[i].UserId+'">预览</a>' +
                         '<a onclick="edit(this)">编辑</a>' +
                         '<a onclick="del(this)">删除</a>' +
                         '</div>')
@@ -83,15 +83,26 @@ function creatItem(parent,page) {
 
 }
 function del(el) {
-    var val = $(el).parent().parent().data('item');
-    api.delurlcode(val.code,function (data) {
-        console.log(data);
-        if(data.Success){
-            $(el).parent().parent().remove();
-        } else {
-            tools.setGoLogin();
+    layer.msg('您确定要删除吗？',
+        {
+            time: 20000, //20s后自动关闭
+            btn: ['确定', '取消'],
+            btn1: function () {
+                var val = $(el).parent().parent().data('item');
+                api.delurlcode(val.code,function (data) {
+                    console.log(data);
+                    if(data.Success){
+                        $(el).parent().parent().remove();
+                    } else {
+                        tools.setGoLogin();
+                    }
+                });
+            },
+            btn2:function () {
+
+            }
         }
-    });
+    );
 }
 
 function edit(el) {

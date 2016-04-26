@@ -55,9 +55,6 @@ widgt.main = function () {
                 tools.setInputVal($_form,_data);
                 break;
             case 4 :
-                _data = {Content1 : editewm.Content}
-                tools.setOn($_form,$_item);
-                tools.setInputVal($_form,_data);
                 break;
             case 5 :
                 break;

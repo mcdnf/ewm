@@ -26,10 +26,11 @@ var index_animate = function(){
 var touch = function(btnId){
 	var startY, old_h;
 	var old_sortTab_h = $("#sortTab").height();
+	var tag_btn_h = $('#tag_btn').height();
 	function slide(startY,endY){
 		var Y = endY - startY;		
         var new_sortTab_h = old_h - Y;
-        if(old_sortTab_h+4>=new_sortTab_h && old_sortTab_h/2+15<=new_sortTab_h){
+        if(old_sortTab_h+4>=new_sortTab_h && tag_btn_h<=new_sortTab_h){
         	$("#sortTab").height(new_sortTab_h);
         	index_animate();
         }

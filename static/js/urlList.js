@@ -23,9 +23,10 @@ $('#header').on('click','.h-right>a.h-btn',function () {
     })
 });
 
+var clone = $('#addItem').prev().clone();
 $('#addItem').on('click',function () {
-    var clone = $(this).prev().clone();
     $(this).prev().after(clone);
+    clone = $(this).prev().clone();
 });
 
 $('#addUrl').on('click','.del',function () {
@@ -41,6 +42,8 @@ function goAdd() {
     $_h.find('.h-center').text('网址导航').end()
         .find('.h-left>a').text('取消').addClass('h-btn').end()
         .find('.h-right>a').removeClass('add').text('保存').addClass('h-btn');
+    // var item =$('#addItem').find('.url-item:gt(2)').remove()
+    //     .end().find('input').val('');
 }
 function goList() {
     var $_h = $('#header');
@@ -98,15 +101,26 @@ function creatItem(parent,page) {
 
 }
 function del(el) {
-    var val = $(el).parent().parent().data('item');
-    api.delurlcode(val.code,function (data) {
-        console.log(data);
-        if(data.Success){
-            $(el).parent().parent().remove();
-        } else {
-            tools.setGoLogin();
+    layer.msg('您确定要删除吗？',
+        {
+            time: 20000, //20s后自动关闭
+            btn: ['确定', '取消'],
+            btn1: function () {
+                var val = $(el).parent().parent().data('item');
+                api.delurlcode(val.code,function (data) {
+                    console.log(data);
+                    if(data.Success){
+                        $(el).parent().parent().remove();
+                    } else {
+                        tools.setGoLogin();
+                    }
+                });
+            },
+            btn2:function () {
+
+            }
         }
-    });
+    );
 }
 
 function edit(el) {

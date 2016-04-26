@@ -43,7 +43,7 @@ $('#header').on('click','.h-right>a.h-btn',function () {
 
 $('#main').on('click','#addVcardMore',function () {
     $(this).remove();
-    $('#addcard').find('.hide').removeClass('hide');
+    $('#addCard').find('.hide').removeClass('hide');
 })
 
 $('#footer').on('click',function () {
