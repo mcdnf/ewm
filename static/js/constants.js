@@ -11,7 +11,8 @@ var website = {
     //二维码接口
     qrcode: "http://personal.api.2wm.wj/qrcode/",
     userurlcode : "http://personal.api.2wm.wj/userurlcode/",
-    template : "http://personal.api.2wm.wj/template/"
+    template : "http://personal.api.2wm.wj/template/",
+    resource : "http://personal.api.2wm.wj/resource/"
 };
 
 var pageUrl = "http://mobile.2wm.wj/";

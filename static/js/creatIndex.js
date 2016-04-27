@@ -39,6 +39,7 @@ var creatIndex = {
 }
 
 function creatItem(parent,page) {
+    page = 1;
     creatIndex.getList(page, function (data) {
         console.log(data);
         if(data.Success){
@@ -75,6 +76,28 @@ function creatItem(parent,page) {
     });
 }
 
+
+$('#main').on('click','#scroller ul>li>i',function (event) {
+    event.stopPropagation();
+    var text = $(this).parent().data('item').Content;
+    if(!$('#showEwmBox').length){
+        $('#view').after('<div id="showEwmBox" style="width: 100%;display: none;padding: 10px 0;"><div id="showEwm"></div><p>长安保存到手机</p></div>');
+    }
+    tools.ewmStyle(text,$('#showEwm'),.8);
+    var _size = $(window).width()*.85;
+    layer.open({
+        title: '　',
+        type: 1,
+        area:[_size+'px'],
+        scrollbar: false,
+        content: $('#showEwmBox'),
+        success: function(layero, index){
+
+            console.log(layero, index);
+        }
+    });
+})
+
 function del(el) {
     layer.msg('您确定要删除吗？',
         {
@@ -96,6 +119,7 @@ function del(el) {
         }
     );
 }
+sessionStorage.removeItem('editewm');
 
 function edit(el) {
     var editewm = $(el).parent().parent().data('item');

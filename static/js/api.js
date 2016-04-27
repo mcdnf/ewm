@@ -140,7 +140,13 @@ var api ={
             website.template + 'gettemplate/' + url,
             callBackFn
         );
+    },
+    addhand : function (param, callBackFn) {
+        tools.ajax.post(
+            website.resource + 'addhand/',
+            param,
+            callBackFn
+        );
     }
     
-
 };

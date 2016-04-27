@@ -52,6 +52,7 @@ function goList() {
     $_h.find('.h-center').text('网址导航').end()
         .find('.h-left>a').text('').removeClass('h-btn').end()
         .find('.h-right>a').addClass('add').text('').removeClass('h-btn');
+    load_content();
 }
 
 
@@ -63,7 +64,10 @@ function creatItem(parent,page) {
     api.geturlcodedatalist(url, function (data) {
         console.log(data);
         if(data.Success){
-            var _htmlArr = [];
+            if(!data.Data) {
+                tools.layer.toast('没有数据');
+                return;
+            }
             for (var i = 0; i < data.Data.List.length; i++) {
                 var val = data.Data.List[i],
                     item = {

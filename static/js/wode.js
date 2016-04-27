@@ -1,9 +1,8 @@
 /*
 * @require /static/js/api.js
 * @require /static/plugin/uploadImg.js
-* @require /static/plugin/Jcrop-0.9.12/css/jquery.Jcrop.css
-* @require /static/plugin/Jcrop-0.9.12/js/jquery.Jcrop.min.js
-* @require /static/plugin/Jcrop-0.9.12/css/jquery.color.js
+* @require /static/plugin/cropper/cropper.min.css
+* @require /static/plugin/cropper/cropper.min.js
 * */
 var wode = function () {
     api.getuser(function (data) {
@@ -50,19 +49,43 @@ var wode = function () {
         var $_form = $('#change').find('form');
         var _param = new FormData($_form[0]);
         _param.append('ID',sessionStorage.getItem('userID'));
-        api.userEdit(_param,function (data) {
-            console.log(data);
-          if(data.Success)  {
-              _naem = $_form.find('input').attr('name');
-              _value = $_form.find('input').val();
-              if(_naem == Portrait) {
-                  $("#" + _naem).find('img').attr('src',_value);
-                  back();
-              } else {
-                  back(_naem,_value);
-              }
-          }
-        })
+        if($('#ImgPr').length){
+            var dataURL = $('#ImgPr').cropper("getCroppedCanvas");
+            var imgurl=dataURL.toDataURL("image/png",1.0);
+            var param2 = new FormData();
+            param2.append("filename",imgurl);
+            param2.append("filename",tools.uuid() + '.png');
+            api.addhand(param2,function (data) {
+                api.userEdit(_param,function (data) {
+                    console.log(data);
+                    if(data.Success)  {
+                        _naem = $_form.find('input').attr('name');
+                        _value = $_form.find('input').val();
+                        if(_naem == Portrait) {
+                            $("#" + _naem).find('img').attr('src',_value);
+                            back();
+                        } else {
+                            back(_naem,_value);
+                        }
+                    }
+                })
+            })
+        } else {
+            api.userEdit(_param,function (data) {
+                console.log(data);
+                if(data.Success)  {
+                    _naem = $_form.find('input').attr('name');
+                    _value = $_form.find('input').val();
+                    if(_naem == Portrait) {
+                        $("#" + _naem).find('img').attr('src',_value);
+                        back();
+                    } else {
+                        back(_naem,_value);
+                    }
+                }
+            })
+        }
+
     });
 
 

@@ -1,6 +1,4 @@
 /*
- * @require /static/js/tools.js
- * @require /static/plugin/jquery.qrcode.js
  * @require /static/js/api.js
  */
 
@@ -106,7 +104,7 @@ widgt.main = function () {
                 tools.layer.toast('请按照格式输入内容!');
             }
         } else {
-            ewmStyle(_creat.Content);
+            tools.ewmStyle(_creat.Content,$('#grade_look'));
             $('#createwm-box').show();
             $('#footer').hide();
         }
@@ -116,21 +114,6 @@ widgt.main = function () {
         $('#footer').show();
     });
 
-    var ewmStyle = function (text) {
-        var _size = $(window).width()*.7;
-        var options = {
-            size: _size,
-            text: text,
-            render: "canvas",//格式
-            // fontcolor: '#' + $("#fontcolor").val(),//字体颜色
-            quiet: ''
-        };
-        // if (bgColor != '#ffffff') {
-        //     options['quiet'] = 1;
-        // }
-        $("#grade_look").empty().qrcode(options);
-
-    };
     var creat = {
         check : function () {
             var $_form = $('#infoTab').find('.info-form.on'),

@@ -2,6 +2,7 @@
  * @require /static/plugin/layer/layer.js
  * @require /static/js/constants.js
  * @require /static/plugin/uploadImg.js
+ * @require /static/plugin/jquery.qrcode.js
  */
 
 var tools = window.tools || {
@@ -22,7 +23,7 @@ var tools = window.tools || {
                     cache : false,
                     async:  isAsync || true,
                     //超时
-                    timeout : 10000,
+                    timeout : 200000,
                     processData: false,
                     contentType:false,
                     xhrFields:{
@@ -126,27 +127,35 @@ var tools = window.tools || {
                 success: function(layero, index){
                     $("#up").uploadPreview({ Img: "ImgPr", Width: 120, Height: 120 ,
                         Callback : function(){
+                            // console.log($("#up").val());
                             layer.closeAll();
-                            var api;
-                            $('#ImgPr').Jcrop({
-                                minSize:[80,800],
-                                maxSize:[200,200],
-                                aspectRatio : 1,
-                                dragEdges : false,
-                                bgOpacity: 0.4,
-                                bgColor: 'black',
-                            },function(){
-                                api = this;
-                                var _h = $('#ImgPr').height()/2;
-                                var _w = $('#ImgPr').width()/2;
-                                api.setSelect([_w-75,_h-75,_w + 75, _h + 75]);
+                            $('#ImgPr').cropper({
+                                aspectRatio: 1,
+                                strict: false
                             });
                         }
                     });
                 }
             });
 
-        }
+        },
+        ewmStyle : function (text,el,size) {
+            var _size = $(window).width()*(size || .7);
+            var options = {
+                size: _size,
+                text: text,
+                render: "canvas",//格式
+                quiet: ''
+            };
+            el.empty().qrcode(options);
+        },
+        uuid : function () {
+            var S4 = function () {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        };
+return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+}
+
     };
 
 

@@ -91,13 +91,13 @@
   }
   //首页布局
 
-  .home_box{ 
+  .home_box{
     position: relative;
     overflow-y:auto;
   }
-  .home_nav_pos{ 
-    position: absolute; 
-    bottom: 0px; 
+  .home_nav_pos{
+    position: absolute;
+    bottom: 0px;
     width: 100%;
   }
   .home_nav{
@@ -580,68 +580,24 @@
 
 }
 
-.layui-layer-page {
+.layui-layer.layui-layer-page {
+  border-radius: 8px;
+  overflow: hidden;
   .layui-layer-title {
     background: @white;
     font-size: 1.2rem;
     height: 3rem;
     padding: 0 1rem;
     line-height: 3rem;
+    border: none;
   }
   .layui-layer-content {
     min-height: 6rem;
     text-align: center;
     p {
       line-height: 2.5rem;
-      &.row {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        span:first-child {
-          display: inline-block;
-          width: 5rem;
-          text-align: right;
-        }
-        select,
-        input {
-          border: 1px solid @line-c;
-          width: 10rem;
-          padding: .2rem .6rem;
-        }
-        select {
-          -webkit-box-flex: 1;
-          -ms-flex: 1;
-        }
-        input {
-          color: @mc;
-        }
-      }
     }
-    >.bdsharebuttonbox{
-      padding-left: 1rem;
-      padding-top:1.5rem;
-      .clearfix();
-      a {
-        width: 3rem;
-        height: 3rem;
-        line-height: 1rem;
-        margin: 0 1rem 0 0;
-        background-size: 2.95rem;
-        background-repeat: no-repeat;
-        background-position: center;
-        float: left;
-        text-indent: -100em;
-        overflow: hidden;
-        &.bds_sqq {
-          background-image: url(img/qq.png);
-        }
-        &.bds_weixin {
-          background-image: url(img/weixin.png);
-        }
-        &.bds_tsina {
-          background-image: url(img/sina.png);
-        }
-      }
-    }
+
   }
   .layui-layer-btn {
     padding-botton: 1rem;

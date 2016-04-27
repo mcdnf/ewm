@@ -47,8 +47,9 @@ function creatItem(parent,page) {
         console.log(data);
         if(data.Success){
             var _htmlArr = [];
-            if(!data.Data){
-                return
+            if(!data.Data) {
+                tools.layer.toast('没有数据');
+                return;
             }
             for (var i = 0; i < data.Data.List.length; i++) {
                 var val = data.Data.List[i].ContentData,
