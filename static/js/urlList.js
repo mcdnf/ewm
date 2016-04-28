@@ -52,7 +52,7 @@ function goList() {
     $_h.find('.h-center').text('网址导航').end()
         .find('.h-left>a').text('').removeClass('h-btn').end()
         .find('.h-right>a').addClass('add').text('').removeClass('h-btn');
-    load_content();
+    load_content('refresh');
 }
 
 

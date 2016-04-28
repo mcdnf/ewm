@@ -5,6 +5,7 @@
 var widgt = window.widgt || {};
 
 widgt.main = function () {
+
     var $_clone;
 
     //编辑时切换并赋值

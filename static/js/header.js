@@ -1,4 +1,4 @@
-//  @require /static/js/fn.js
+// @require /static/js/api.js
 
 var widgt = window.widgt || {};
 
@@ -41,5 +41,17 @@ widgt.header = function () {
     }
 }
 
-widgt.header();
+
+api.getuser(function (data) {
+    console.log(data)
+    if(data.Success){
+        $('#header').find('.menu').css({'display': 'block'});
+        widgt.header();
+        $('#login').text('退出');
+    } else {
+        sessionStorage.removeItem('isLogin');
+        $('#login').text('登录');
+
+    }
+});
 

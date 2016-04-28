@@ -14,4 +14,3 @@ $("#loginSubmit").on('click',function () {
     });
 
 });
-//WJUserToken 3987c6cccf514a3a8de6324731d8ff92

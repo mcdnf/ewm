@@ -45,10 +45,12 @@ widgt.footer = function() {
     }
     $('#login').on('click',function () {
         if(isLogin){
-            api.outlogin(function (data) {
+            api.outlogin(document.cookie,function (data){
+                console.log(data);
                 if(data.Success){
+                    sessionStorage.removeItem('isLogin');
                     $('#login').text('登录');
-                    sessionStorage.setItem('isLogin',false)
+                    tools.setGoLogin();
                 }
             });
         } else {

@@ -12,9 +12,9 @@ var api ={
         );
     },
     //退出
-    outlogin: function (callBackFn) {
+    outlogin: function (url,callBackFn) {
         tools.ajax.get(
-            website.auth + 'outlogin/?token=3987c6cccf514a3a8de6324731d8ff92',
+            website.auth + 'outlogin/?' + url,
             callBackFn
         );
     },
@@ -145,6 +145,12 @@ var api ={
         tools.ajax.post(
             website.resource + 'addhand/',
             param,
+            callBackFn
+        );
+    },
+    getcataloglist  : function (catatype, callBackFn) {
+        tools.ajax.get(
+            website.catalog + 'getcataloglist/?catatype=' + catatype,
             callBackFn
         );
     }

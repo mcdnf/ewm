@@ -151,10 +151,14 @@ var tools = window.tools || {
         },
         uuid : function () {
             var S4 = function () {
-            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-        };
-return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-}
+                    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+                };
+            return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+        },
+        delCookie : function (name){
+            document.cookie="WJUserToken=John Smith; expires=Thu, 18 Dec 2013 12:00:00 GMT; path=/";
+            document.cookie = "WJUserToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/ ";
+        }
 
     };
 

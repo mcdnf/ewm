@@ -75,7 +75,7 @@ var wode = function () {
                 console.log(data);
                 if(data.Success)  {
                     _naem = $_form.find('input').attr('name');
-                    _value = $_form.find('input').val();
+                    _value = $_form.find('input:checked').val();
                     if(_naem == Portrait) {
                         $("#" + _naem).find('img').attr('src',_value);
                         back();
@@ -86,6 +86,11 @@ var wode = function () {
             })
         }
 
+    });
+
+    $('#change').on('click','label',function () {
+        $(this).addClass('on').siblings().removeClass('on');
+        $(this).find('input').prop('checked',true);
     });
 
 
@@ -103,9 +108,6 @@ var wode = function () {
             }
             $_forme.append('<label class="'+(ischeck.male ? "on" : "")+'">男<input type="radio" name="Gender" value="male" checked="'+ischeck.male+'"></label>' +
                 '<label class="'+(ischeck.female ? "on" : "")+'">女<input type="radio" name="Gender" value="female" checked="'+ischeck.female+'"></label>');
-            $('#change').on('change','label>input[type="radio"]',function () {
-                $(this).parent().addClass('on').siblings().removeClass('on');
-            });
         } else {
             $_forme.append('<input type="text" name="' + name + '" value="' + value + '">');
         }
@@ -128,6 +130,7 @@ var wode = function () {
     }
 
     function setGender(id,v) {
+        console.log(id,v)
         if(v === "male"){
             $('#' + id).text('男').data('Gender',v);
         } else {

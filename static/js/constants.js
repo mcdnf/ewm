@@ -12,7 +12,8 @@ var website = {
     qrcode: "http://personal.api.2wm.wj/qrcode/",
     userurlcode : "http://personal.api.2wm.wj/userurlcode/",
     template : "http://personal.api.2wm.wj/template/",
-    resource : "http://personal.api.2wm.wj/resource/"
+    resource : "http://personal.api.2wm.wj/resource/",
+    catalog : "http://personal.api.2wm.wj/catalog/"
 };
 
 var pageUrl = "http://mobile.2wm.wj/";
