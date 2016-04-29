@@ -33,6 +33,26 @@ $('#addUrl').on('click','.del',function () {
     $(this).parent().remove();
 });
 
+$('#main').on('click','#scroller ul>li>i',function (event) {
+    event.stopPropagation();
+    var text = 'http://2v.ms/' + $(this).parent().data('item').code;
+    if(!$('#showEwmBox').length){
+        $('#view').after('<div id="showEwmBox" style="width: 100%;display: none;padding: 10px 0;"><div id="showEwm"></div><p>长安保存到手机</p></div>');
+    }
+    tools.ewmStyle(text,$('#showEwm'),.8);
+    var _size = $(window).width()*.85;
+    layer.open({
+        title: '　',
+        type: 1,
+        area:[_size+'px'],
+        scrollbar: false,
+        content: $('#showEwmBox'),
+        success: function(layero, index){
+
+            console.log(layero, index);
+        }
+    });
+});
 
 
 function goAdd() {
@@ -101,8 +121,6 @@ function creatItem(parent,page) {
         }
 
     });
-
-
 }
 function del(el) {
     layer.msg('您确定要删除吗？',

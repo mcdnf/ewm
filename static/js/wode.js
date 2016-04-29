@@ -54,21 +54,19 @@ var wode = function () {
             var imgurl=dataURL.toDataURL("image/png",1.0);
             var param2 = new FormData();
             param2.append("filename",imgurl);
-            param2.append("filename",tools.uuid() + '.png');
+            param2.append("ResName",tools.uuid() + ".png");
             api.addhand(param2,function (data) {
-                api.userEdit(_param,function (data) {
-                    console.log(data);
-                    if(data.Success)  {
-                        _naem = $_form.find('input').attr('name');
-                        _value = $_form.find('input').val();
-                        if(_naem == Portrait) {
-                            $("#" + _naem).find('img').attr('src',_value);
+                if(data.Success) {
+                    var _imgurl = data.Data;
+                    _param.append('NickName',_imgurl);
+                    api.userEdit(_param,function (data) {
+                        console.log(data);
+                        if(data.Success)  {
+                            $("#NickName").find('img').attr('src',_imgurl);
                             back();
-                        } else {
-                            back(_naem,_value);
                         }
-                    }
-                })
+                    })
+                }
             })
         } else {
             api.userEdit(_param,function (data) {
