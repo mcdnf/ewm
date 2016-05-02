@@ -11,6 +11,7 @@ jQuery.fn.extend({
             Img: "ImgPr",
             Width: 100,
             Height: 100,
+            ImgSize: 1,//单位M
             ImgType: ["gif", "jpeg", "jpg", "bmp", "png"],
             Callback: function () {}
         }, opts || {});
@@ -30,7 +31,11 @@ jQuery.fn.extend({
                 if (!RegExp("\.(" + opts.ImgType.join("|") + ")$", "i").test(this.value.toLowerCase())) {
                     tools.layer.toast("选择文件错误,图片类型必须是" + opts.ImgType.join("，") + "中的一种");
                     this.value = "";
-                    return false
+                    return false;
+                }
+                if(this.files[0].size/1024/1024 > opt.ImgSize) {
+                    tools.layer.toast("选择文件必须小于"+opt.ImgSize+"M");
+                    return false;
                 }
                 if ($.support.leadingWhitespace) {
                     try {

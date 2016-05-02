@@ -38,14 +38,18 @@ var creatIndex = {
 
 }
 
-function creatItem(parent,page) {
-    page = 1;
+function creatItem(parent,page,callBackFn) {
     creatIndex.getList(page, function (data) {
-        console.log(data);
         if(data.Success){
             if(!data.Data) {
                 tools.layer.toast('没有数据，快去添加数据');
                 tools.goPage('index');
+                return;
+            }
+            if(data.Data.List.length === 0) {
+                next_page = page;
+                tools.layer.toast('没有更多数据了');
+                eval(callBackFn);
                 return;
             }
             for (var i = 0; i < data.Data.List.length; i++) {
@@ -69,6 +73,7 @@ function creatItem(parent,page) {
                     .data('item',item)
                     .appendTo(parent);
             }
+            eval(callBackFn);
         }  else {
             tools.setGoLogin();
         }

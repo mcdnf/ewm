@@ -119,7 +119,9 @@ widgt.main = function () {
         check : function () {
             var $_form = $('#infoTab').find('.info-form.on'),
                 _textarea = $_form.find('textarea[name="Content1"]').val() || "";
-
+            if(!tools.required($_form)){
+                return;
+            }
             if($_form.hasClass('text') && _textarea){
                 _content = _textarea;
             } else if($_form.hasClass('sms') && _textarea){

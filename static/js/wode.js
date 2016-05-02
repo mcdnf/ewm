@@ -6,7 +6,6 @@
 * */
 var wode = function () {
     api.getuser(function (data) {
-        console.log(data)
         if(data.Success){
             sessionStorage.setItem('userID',data.Data.ID);
             $.each(data.Data,function (k,v) {
@@ -31,9 +30,7 @@ var wode = function () {
             $_val = $_t.find('span:eq(1)');
         var _span = $_t.find('span:eq(0)').text();
         _naem = $_val.attr('id');
-
         if(_naem === "Gender") _value = $_val.data('Gender')
-
         else _value = $_val.text();
         $_h.find('.h-center').text(_span).end()
             .find('.h-left').show().end()
@@ -45,24 +42,24 @@ var wode = function () {
     $('#header').on('click','.h-left',function () {
         back();
     });
+
     $('#header').on('click','.h-right',function () {
         var $_form = $('#change').find('form');
         var _param = new FormData($_form[0]);
         _param.append('ID',sessionStorage.getItem('userID'));
         if($('#ImgPr').length){
             var dataURL = $('#ImgPr').cropper("getCroppedCanvas");
-            var imgurl=dataURL.toDataURL("image/png",1.0);
+            var imgurl = dataURL.toDataURL().substring(22);
             var param2 = new FormData();
             param2.append("filename",imgurl);
             param2.append("ResName",tools.uuid() + ".png");
             api.addhand(param2,function (data) {
                 if(data.Success) {
                     var _imgurl = data.Data;
-                    _param.append('NickName',_imgurl);
+                    _param.append('Portrait',_imgurl);
                     api.userEdit(_param,function (data) {
-                        console.log(data);
                         if(data.Success)  {
-                            $("#NickName").find('img').attr('src',_imgurl);
+                            $("#Portrait").find('img').attr('src',_imgurl);
                             back();
                         }
                     })
@@ -70,7 +67,6 @@ var wode = function () {
             })
         } else {
             api.userEdit(_param,function (data) {
-                console.log(data);
                 if(data.Success)  {
                     _naem = $_form.find('input').attr('name');
                     _value = $_form.find('input:checked').val();
@@ -90,7 +86,6 @@ var wode = function () {
         $(this).addClass('on').siblings().removeClass('on');
         $(this).find('input').prop('checked',true);
     });
-
 
     function creatForme(name,value) {
         var $_forme = $('<form  enctype="multipart/form-data"></form>');
@@ -128,7 +123,6 @@ var wode = function () {
     }
 
     function setGender(id,v) {
-        console.log(id,v)
         if(v === "male"){
             $('#' + id).text('男').data('Gender',v);
         } else {
@@ -138,8 +132,6 @@ var wode = function () {
 
 
 }
-function changeImg(el) {
-    console.log($(el));
-}
+
 wode();
 

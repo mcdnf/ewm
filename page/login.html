@@ -17,11 +17,11 @@
             <form class="login-center" enctype="multipart/form-data" >
                 <div class="input-box">
                     <span>账号</span>
-                    <input name="Account" type="text" placeholder="请输入手机或邮箱">
+                    <input name="Account" data-vr='{"maxlength":"50","required":"true"}' type="text" placeholder="请输入手机或邮箱">
                 </div>
                 <div class="input-box">
                     <span>密码</span>
-                    <input name="Password" type="password" placeholder="请输入登录密码">
+                    <input name="Password" data-vr='{"minlength":"6","maxlength":"16","required":"true","type":"password"}' type="password" placeholder="请输入登录密码">
                 </div>
                 <a id="loginSubmit" class="btn full">登录</a>
                 <p>忘记密码？<a href="forgotPassword.html">立即找回</a></p>

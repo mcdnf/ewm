@@ -18,80 +18,97 @@
     <!-- @require static/js/addVcard.js -->
     <div id="main" class="main">
         <form class="add-form" enctype="multipart/form-data" id="addCard">
-            <input  name="Code" type="hidden" value="">
             <input  name="CodeType" type="hidden" value="2">
-            <input  name="headImg" type="hidden" value="">
-            <input  name="backImg" type="hidden" value="">
-            <input  name="CatalogId" type="hidden" value="">
-            <input  name="TemplateCode" type="hidden" value="default">
-            <input  name="TemplateNote" type="hidden" value="">
+            <input  name="TemplateCode" type="def">
+            <input  name="backImg" type="hidden">
             <div class="add-head hide">
                 <div class="head-hd hide" id="Portrait">
                     <img id="" src="../static/img/p16.png" alt="">
+                    <input type="hidden" name="HeadImg">
                 </div>
                 <div class="head-bd">
                     <div class="input-box">
                         <span>姓名</span>
-                        <input type="text" name="CardName" placeholder="请输入姓名">
+                        <input type="text" data-vr='{"maxlength":"50","required":"true"}' name="CardName" placeholder="请输入姓名">
                     </div>
                     <div class="input-box">
                         <span>单位</span>
-                        <input type="text" name="Company" placeholder="请输入单位">
+                        <input type="text" data-vr='{"maxlength":"50"}' name="Company" placeholder="请输入单位">
                     </div>
                     <div class="input-box hide">
                         <span>职位</span>
-                        <input type="text" name="Station" placeholder="请输入职位">
+                        <input type="text" data-vr='{"maxlength":"50"}' name="Station" placeholder="请输入职位">
                     </div>
                 </div>
             </div>
-            <div class="input-box hide">
-                <span>电话</span>
-                <input type="tel" name="Tel" placeholder="如:010-33214567-321">
+            <div id="addTel" >
+                <div class="input-box hasadd hide">
+                    <span>电话</span>
+                    <input type="tel" data-vr='{"minlength":"8","maxlength":"18","type":"tel"}' name="Tel" placeholder="如:010-33214567-321">
+                    <i class="add"></i>
+                </div>
             </div>
-            <div class="input-box hide">
-                <span>电话</span>
-                <input type="tel" name="Tel" placeholder="如:010-33214567-321">
-            </div>
-            <div class="input-box">
-                <span>手机</span>
-                <input type="tel" name="Mobile" placeholder="请输入手机号码">
+            <div  id="addMobile">
+                <div class="input-box hasadd">
+                    <span>手机</span>
+                    <input type="tel" data-vr='{"length":"11","type":"mobile","required":"true"}' name="Mobile" placeholder="请输入手机号码">
+                    <i class="add"></i>
+                </div>
             </div>
             <a id="addVcardMore" class="btn full">我还有更多资料</a>
-            <div class="input-box hide">
-                <span>传真</span>
-                <input type="tel" name="Fax" placeholder="请输入传真号码">
+            <div id="addFax">
+                <div class="input-box hasadd hide">
+                    <span>传真</span>
+                    <input type="tel" data-vr='{"minlength":"18","maxlength":"18","type":"tel"}' name="Fax" placeholder="请输入传真号码">
+                    <i class="add"></i>
+                </div>
             </div>
-            <div class="input-box hide">
-                <span>邮箱</span>
-                <input type="text hide" name="Email" placeholder="请输入邮箱">
+            <div id="addEmail">
+                <div class="input-box hasadd hide">
+                    <span>邮箱</span>
+                    <input type="text hide" data-vr='{"maxlength":"5","type":"email"}' name="Email" placeholder="请输入邮箱">
+                    <i class="add"></i>
+                </div>
             </div>
-            <div class="input-box hide">
-                <span>网址</span>
-                <input type="text" name="PersonWeb" placeholder="请输入网址">
+            <div id="addPersonWeb">
+                <div class="input-box hasadd hide">
+                    <span>网址</span>
+                    <input type="text" data-vr='{"maxlength":"100","type":"url"}' name="PersonWeb" placeholder="请输入网址">
+                    <i class="add"></i>
+                </div>
             </div>
             <div class="input-box hide">
                 <span>微博</span>
-                <input type="text" name="Weibo" placeholder="请输入微博">
+                <input type="text" data-vr='{"maxlength":"100","type":"url"}' name="Weibo" placeholder="请输入微博">
             </div>
-            <div class="input-box hide">
+            <div class="input-box hasbtn hide">
                 <span>QQ</span>
-                <input type="text" name="QQ" placeholder="请输入QQ">
+                <input type="text" data-vr='{"maxlength":"20","type":"qq"}' name="QQ" placeholder="请输入QQ">
+                <input type="hidden" name="QQUrl">
+                <i class="add-ewm">上传二维码</i>
             </div>
-            <div class="input-box hide">
+            <div class="input-box hasbtn hide">
                 <span>微信</span>
-                <input type="text" name="Weixin" placeholder="请输入微信">
+                <input type="text" data-vr='{"maxlength":"20"}' name="Weixin" placeholder="请输入微信">
+                <input type="hidden" name="WeixinUrl">
+                <i class="add-ewm">上传二维码</i>
             </div>
             <div class="input-box hide">
                 <span>地址</span>
-                <input type="text" name="Address" placeholder="请输入地址">
+                <input type="text" data-vr='{"maxlength":"50"}' name="Address" placeholder="请输入地址">
             </div>
             <div class="input-box hide">
                 <span>说明</span>
-                <input type="text" name="PersonNote" placeholder="请输入说明">
+                <input type="text" data-vr='{"maxlength":"200"}' name="PersonNote" placeholder="请输入说明">
             </div>
         </form>
         <div id="selectTpl">
-            <div class="swiper-container">
+            <div class="swiper-container swiper-tpl">
+                <div class="swiper-wrapper"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <p>选择背景</p>
+            <div class="swiper-container swiper-bg">
                 <div class="swiper-wrapper"></div>
                 <div class="swiper-pagination"></div>
             </div>

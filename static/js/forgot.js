@@ -1,5 +1,6 @@
 // @require /static/js/api.js
 var forgot = function () {
+    
     $('#imgCode').click(function(){
         if(!this._src){
             this._src =  this.src;

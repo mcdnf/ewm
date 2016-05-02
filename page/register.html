@@ -23,19 +23,19 @@
             <form class="login-center" enctype="multipart/form-data">
                 <div class="input-box">
                     <span>邮箱</span>
-                    <input name="Email" type="text" placeholder="请输入邮箱">
+                    <input name="Email" data-vr='{"maxlength":"50","required":"true","type":"email"}' type="text" placeholder="请输入邮箱">
                 </div>
                 <div class="input-box">
-                    <span>电话</span>
-                    <input name="Phone" type="text" placeholder="请输入手机号码">
+                    <span>手机</span>
+                    <input name="Phone" data-vr='{"maxlength":"50","required":"true","type":"mobile"}' type="tel" placeholder="请输入手机号码">
                 </div>
                 <div class="input-box">
                     <span>密码</span>
-                    <input name="Password" type="password" placeholder="请输入密码">
+                    <input name="Password" data-vr='{"minlength":"6","maxlength":"16","required":"true","type":"password"}' type="password" placeholder="请输入密码">
                 </div>
                 <div class="input-box">
                     <span>确认密码</span>
-                    <input name="rePassword" type="password" placeholder="请确认您的密码">
+                    <input name="rePassword" data-vr='{"minlength":"6","maxlength":"16","required":"true","type":"password"}' type="password" placeholder="请确认您的密码">
                 </div>
                 <a class="btn full" id="registerSubmit">注册</a>
             </form>

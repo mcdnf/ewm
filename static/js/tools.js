@@ -32,6 +32,7 @@ var tools = window.tools || {
                     success: successCallBack,
                     error : function(jqXHR, textStatus, errorThrown) {
                         console.log("错误信息："+jqXHR.status+"***"+jqXHR.readyState+"***"+textStatus);
+                        tools.goPage('login');
                     },
                     beforeSend : function () {
                         loading = layer.load(1, {shade: [0.65, '#000']});
@@ -59,6 +60,7 @@ var tools = window.tools || {
                     success: successCallBack,
                     error : function(jqXHR, textStatus, errorThrown) {
                         console.log("错误信息："+jqXHR.status+"***"+jqXHR.readyState+"***"+textStatus);
+                        tools.goPage('login');
                     },
                     beforeSend : function () {
                         loading = layer.load(1, {shade: [0.65, '#000']});
@@ -101,8 +103,26 @@ var tools = window.tools || {
                 form.find('[name="'+k+'"]').val(v)
                     .next('.text-count').find('span').text(v && v.length);
             })
+        },
+        setInputVals : function (form,data){
+            $.each(data,function (k,v) {
+                var arr = v ? v.split(',') : v;
+                if(arr.length > 1) {
+                    var _el = form.find('[name="'+k+'"]')[0];
+                    $(_el).val(arr[0]);
+                    $.each(arr,function (k1,v1) {
+                        k1 > 0 && tools.creatInputBox(_el,v1);
+                    });
+                } else {
+                    if(k === 'HeadImg'){
+                        form.find('[name="'+k+'"]').prev().attr("src", v);
+                    } else {
+                        form.find('[name="'+k+'"]').val(v)
+                            .next('.text-count').find('span').text(v && v.length);
+                    }
+                }
 
-
+            });
         },
         setOn : function (el1,el2) {
             el1.addClass('on').siblings().removeClass('on');
@@ -127,7 +147,6 @@ var tools = window.tools || {
                 success: function(layero, index){
                     $("#up").uploadPreview({ Img: "ImgPr", Width: 120, Height: 120 ,
                         Callback : function(){
-                            // console.log($("#up").val());
                             layer.closeAll();
                             $('#ImgPr').cropper({
                                 aspectRatio: 1,
@@ -158,8 +177,148 @@ var tools = window.tools || {
         delCookie : function (name){
             document.cookie="WJUserToken=John Smith; expires=Thu, 18 Dec 2013 12:00:00 GMT; path=/";
             document.cookie = "WJUserToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/ ";
-        }
+        },
+        creatInputBox : function(el,text) {
+            var _el = $(el),
+                _input = _el.prev('input');
+            _el.parent().parent().append(
+                '<div class="input-box">' +
+                '<span>'+_el.siblings('span').text()+'</span>'+
+                '<input type="'+_input.attr("type")+'" name="'+_input.attr("name")+'" placeholder="'+_input.attr("placeholder")+'" value="'+ (text || "") +'">'+
+                '<i class="del"></i>'+
+                '</div>'
+            );
+        },
+        vr : function (FormEl) {
+            var _inputArr = FormEl.find('input');
+            $.each(_inputArr, function (k, v) {
+                var _v = $(v),
+                    _val = _v.val(),
+                    _data = _v.data('vr');
+                if(!_data) return true;
+                var _required = _data.required || '',
+                    _maxlength = _data.maxlength || '',
+                    _minlength = _data.minlength || '',
+                    _length = _data.length || '',
+                    _type = _data.type || '';
 
+
+
+                if (_type === 'tel' || _type === 'mobile' || _type === 'qq') {
+                    _v.on('keyup',function (event) {
+                        this.value = this.value.replace(/[^\d]/g,'');
+                    })
+                }
+
+                // if (_type === 'password') {
+                //     _v.on('keyup',function (event) {
+                //         this.value = this.value.replace(/[0-9|A-Z|a-z]/g,'');
+                //     })
+                // }
+
+                if (_maxlength) {
+                    _v.on('keyup',function (event) {
+                        var _text = $(this).val();
+                        var _n = _text.length;
+                        if(_maxlength < _n) {
+                            $(this).val(_text.substring(0,_maxlength));
+                        }
+                    })
+                }
+
+            });
+        },
+        required : function (FormEl) {
+            var _inputArr = FormEl.find('input'),vr=true;
+            var _textarea = FormEl.find('textarea');
+            if(_textarea.length){
+                _inputArr.push(_textarea[0]);
+            }
+
+            $.each(_inputArr, function (k, v) {
+                var _v = $(v),
+                    _val = _v.val(),
+                    _data = _v.data('vr');
+                if(!_data) return true;
+                console.log(_data);
+                var _required = _data.required || '',
+                    _maxlength = _data.maxlength || '',
+                    _minlength = _data.minlength || '',
+                    _length = _data.length || '',
+                    _type = _data.type || '';
+
+                if(_required && !_val){
+                    tools.layer.toast('还有必填项未填写');
+                    vr = false;
+                    _v.focus();
+                    return false;
+                }
+
+                if(!_val) {
+                    return true;
+                }
+
+                if (_minlength && _val.length < _minlength) {
+                    tools.layer.toast('输入长度不能小于'+_minlength+'位');
+                    _v.focus();
+                    vr =false;
+                    return false;
+                }
+
+                if (_length) {
+                    console.log(_length);
+                    tools.layer.toast('输入长度必须为'+_length+'位');
+                    vr =false;
+                    _v.focus();
+                    return false;
+                }
+
+                if (_type === 'password') {
+                    if(!_val.match(/^[0-9|A-Z|a-z]{6,16}$/g)) {
+                        tools.layer.toast('密码码格式不正确');
+                        _v.focus();
+                        vr =false;
+                        return false;
+                    }
+                }
+                if (_type === 'tel') {
+                    if(!_val.match(/^1[3|4|5|6|7|8]\d{9}$/g)) {
+                        tools.layer.toast('电话号码格式不正确');
+                        _v.focus();
+                        vr =false;
+                        return false;
+                    }
+                }
+
+                if (_type === 'mobile') {
+                    if(!_val.match(/^[\d]{11}$/g)) {
+                        tools.layer.toast('手机号码格式不正确');
+                        vr =false;
+                        _v.focus();
+                        return false;
+                    }
+                }
+
+                if (_type === 'email') {
+                    if(!_val.match(/^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/g))  {
+                        tools.layer.toast('邮箱格式不正确');
+                        _v.focus();
+                        vr =false;
+                        return false;
+                    }
+                }
+
+                if (_type === 'url') {
+                    if(!_val.match(/^(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?$/g))  {
+                        tools.layer.toast('网址不正确');
+                        _v.focus();
+                        vr =false;
+                        return false;
+                    }
+                }
+            });
+            return vr;
+        }
     };
 
 

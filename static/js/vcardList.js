@@ -58,8 +58,7 @@ function goList() {
         .find('.h-right>a').addClass('add').text('').removeClass('h-btn');
 }
 
-function creatItem(parent,page) {
-    page = 1;
+function creatItem(parent,page,callBackFn) {
     var url ='?pagesize=10&'+
         'pageindex='+page+'&codetype=2&catalogid=0';
     api.geturlcodedatalist(url, function (data) {
@@ -68,6 +67,12 @@ function creatItem(parent,page) {
             var _htmlArr = [];
             if(!data.Data) {
                 tools.layer.toast('没有数据');
+                return;
+            }
+            if(data.Data.List.length === 0) {
+                next_page = page;
+                tools.layer.toast('没有更多数据了');
+                eval(callBackFn);
                 return;
             }
             for (var i = 0; i < data.Data.List.length; i++) {
@@ -87,13 +92,14 @@ function creatItem(parent,page) {
                         '<dv class="vcard-bg"><p>'+val.CardName+'</p><p>'+val.Station+'</p><p>'+val.Company+'</p></dv>' +
                         '</div>' +
                         '<div class="bar">' +
-                        '<a href="http://User.2wm.wj/phone/GET /tpl/'+val.TemplateCode+'/index.html?UserId='+data.Data.List[i].UserId+'&Code='+data.Data.List[i].StringCode+'">预览</a>' +
+                        '<a href="http://User.2wm.wj/phone/tpl/'+val.TemplateCode+'/index.html?UserId='+data.Data.List[i].UserId+'&Code='+data.Data.List[i].StringCode+'">预览</a>' +
                         '<a onclick="edit(this)">编辑</a>' +
                         '<a onclick="del(this)">删除</a>' +
                         '</div>')
                     .data('item',item)
                     .appendTo(parent);
             }
+            eval(callBackFn);
         }  else {
             tools.setGoLogin();
         }

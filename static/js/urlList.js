@@ -6,6 +6,10 @@
  */
 
 
+$('#addUrl').on('focus','input',function () {
+    tools.vr($('#addUrl'));
+});
+
 $('#header').on('click','.add',function () {
     goAdd();
 });
@@ -14,6 +18,9 @@ $('#header').on('click','.h-left',function () {
     goList();
 });
 $('#header').on('click','.h-right>a.h-btn',function () {
+    if(!tools.required($('#addUrl'))){
+        return;
+    }
     var param = new FormData($('#addUrl')[0]);
     api.addurlcode(param,function (data) {
         console.log(data);
@@ -77,8 +84,7 @@ function goList() {
 
 
 
-function creatItem(parent,page) {
-    page = 1;
+function creatItem(parent,page,callBackFn) {
     var url ='?pagesize=10&'+
         'pageindex='+page+'&codetype=1&catalogid=0';
     api.geturlcodedatalist(url, function (data) {
@@ -86,6 +92,12 @@ function creatItem(parent,page) {
         if(data.Success){
             if(!data.Data) {
                 tools.layer.toast('没有数据');
+                return;
+            }
+            if(data.Data.List.length === 0) {
+                next_page = page;
+                tools.layer.toast('没有更多数据了');
+                eval(callBackFn);
                 return;
             }
             for (var i = 0; i < data.Data.List.length; i++) {
@@ -116,6 +128,7 @@ function creatItem(parent,page) {
                     .data('item',item)
                     .appendTo(parent);
             }
+            eval(callBackFn);
         }  else {
             tools.setGoLogin();
         }
