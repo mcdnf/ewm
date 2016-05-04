@@ -106,21 +106,10 @@ var wode = function () {
         }
         $('#change').append($_forme);
         if(name === "Portrait"){
-            tools.layer_getImg();
+            tools.layer_getImg('back()');
         }
     }
-    function back(name,text) {
-        var $_h = $('#header');
-        $('#list').show();
-        $_h.find('.h-center').text('我').end()
-            .find('.h-left').hide().end()
-            .find('.h-right').hide();
-        if(name){
-            if(name === "Gender") setGender(name,text);
-            else $('#' + name).text(text);
-        }
-        $('#change').empty();
-    }
+
 
     function setGender(id,v) {
         if(v === "male"){
@@ -131,6 +120,19 @@ var wode = function () {
     }
 
 
+}
+
+function back(name,text) {
+    var $_h = $('#header');
+    $('#list').show();
+    $_h.find('.h-center').text('我').end()
+        .find('.h-left').hide().end()
+        .find('.h-right').hide();
+    if(name){
+        if(name === "Gender") setGender(name,text);
+        else $('#' + name).text(text);
+    }
+    $('#change').empty();
 }
 
 wode();

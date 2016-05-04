@@ -15,14 +15,17 @@ widgt.footer = function() {
 
     var sortTab = $('#sortTab').find('li').on('click', function (event) {
         event.stopPropagation();
+        // //切换时清空编辑内容
+        // sessionStorage.removeItem('editewm');
+        // $('#infoTab').find('.info-form')
+        //     .eq($('#sortTab').find('li.on').index())
+        //     .find('input').val('').end()
+        //     .find('textarea').val();
         $(this).addClass("on").siblings('li').removeClass("on");
         $('#infoTab').find('.info-form')
             .eq($(this).index()).addClass("on")
             .siblings('.info-form').removeClass("on");
-        //$('#creat').css('top', 'auto');
-        //$("#infoTab").height('auto');
         _infoTabHeight = $("#infoTab").outerHeight(true);
-        //setHeight();
         index_animate();
     });
 

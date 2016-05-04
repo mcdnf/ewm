@@ -24,7 +24,7 @@ widgt.main = function () {
         var _arr,_data;
         switch (editewm.ContentType){
             case 0 :
-                _data = {Content1 : editewm.Content}
+                _data = {Content1 : editewm.Content};
                 tools.setOn($_form,$_item);
                 tools.setInputVal($_form,_data);
                 break;
@@ -54,18 +54,27 @@ widgt.main = function () {
                 tools.setInputVal($_form,_data);
                 break;
             case 4 :
+                _data = {Content1 : editewm.Content};
+                tools.setOn($_form,$_item);
+                tools.setInputVal($_form,_data);
                 break;
             case 5 :
+                _data = {Content1 : editewm.Content.split(':')[1]};
+                tools.setOn($_form,$_item);
+                tools.setInputVal($_form,_data);
                 break;
             case 6 :
+                _data = {Content1 : editewm.Content};
+                tools.setOn($_form,$_item);
+                tools.setInputVal($_form,_data);
                 break;
             default :
                 break;
 
         }
     }
-
-    $(document).on('click', '.add', function (event) {
+    var $_clone;
+    $(document).on('click', '.add1', function (event) {
         event.stopPropagation();
         var $_parent = $(this).parent();
         if ($_parent.next().has('.sub').length) {
@@ -85,7 +94,7 @@ widgt.main = function () {
             _creat = creat.check(),
             isLogin = sessionStorage.getItem('isLogin');
         if(isLogin){
-            if(_content){
+            if(_creat.Content){
                 console.log(_content);
                 var _param = new FormData(_creat.form);
                 _param.append("Content",_creat.Content);

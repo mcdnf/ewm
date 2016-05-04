@@ -127,6 +127,9 @@ $('#main').find('.add-ewm').on('click',function (event) {
 });
 
 $('#footer').on('click',function () {
+    var mainH = $('#main').height();
+    var bgH = tools.remToPx()*6.5;
+    console.log(bgH);
     api.gettemplatelist('?type=0',function (data) {
         if(data.Success){
             console.log(data);

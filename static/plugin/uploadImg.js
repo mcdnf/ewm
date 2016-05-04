@@ -33,8 +33,8 @@ jQuery.fn.extend({
                     this.value = "";
                     return false;
                 }
-                if(this.files[0].size/1024/1024 > opt.ImgSize) {
-                    tools.layer.toast("选择文件必须小于"+opt.ImgSize+"M");
+                if(this.files[0].size/1024/1024 > opts.ImgSize) {
+                    tools.layer.toast("选择文件必须小于"+opts.ImgSize+"M");
                     return false;
                 }
                 if ($.support.leadingWhitespace) {

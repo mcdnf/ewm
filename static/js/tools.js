@@ -71,6 +71,9 @@ var tools = window.tools || {
                 });
             }
         },
+        remToPx : function () {
+            return $('body').css('fontSize').replace(/[^\d|.]/g,'');
+        },
         goPage : function(pageName){
             var url = pageName !== 'index' ? 'page/'  : '';
             window.location.href = pageUrl + url + pageName + '.html';
@@ -134,7 +137,7 @@ var tools = window.tools || {
             _content += '  <li class="input-box">从手机中选取';
             _content += '    <input class="input-file" id="up" type="file" accept="image/*">';
             _content += '  </li>';
-            _content += '  <li class="input-box" onclick="layer.closeAll();">取消</li>';
+            _content += '  <li class="input-box" onclick="back();layer.closeAll()">取消</li>';
             _content += '</ul>';
 
             layer.open({
@@ -210,12 +213,6 @@ var tools = window.tools || {
                     })
                 }
 
-                // if (_type === 'password') {
-                //     _v.on('keyup',function (event) {
-                //         this.value = this.value.replace(/[0-9|A-Z|a-z]/g,'');
-                //     })
-                // }
-
                 if (_maxlength) {
                     _v.on('keyup',function (event) {
                         var _text = $(this).val();
@@ -265,8 +262,7 @@ var tools = window.tools || {
                     return false;
                 }
 
-                if (_length) {
-                    console.log(_length);
+                if (_length && _val.length != _length) {
                     tools.layer.toast('输入长度必须为'+_length+'位');
                     vr =false;
                     _v.focus();
