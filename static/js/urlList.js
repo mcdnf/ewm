@@ -30,10 +30,21 @@ $('#header').on('click','.h-right>a.h-btn',function () {
     })
 });
 
-var clone = $('#addItem').prev().clone();
 $('#addItem').on('click',function () {
+    var clone = '<div class="url-item item-new">'+
+            '<div class="item-hd">'+
+            '<div class="input-box">'+
+            '<span>标题：</span>'+
+            '    <input name="Note" data-vr=\'{"maxlength":"100","required":"true"}\' type="text" placeholder="请输入标题">'+
+            '</div>'+
+            '<div class="input-box">'+
+            '<span>网址：</span>'+
+            '    <input name="Url" data-vr=\'{"maxlength":"100","required":"true"}\' type="text" placeholder="如http://2wm.cn">'+
+            '</div>'+
+            '</div>'+
+            '<div class="item-bd del" ></div>'+
+        '</div>';
     $(this).prev().after(clone);
-    clone = $(this).prev().clone();
 });
 
 $('#addUrl').on('click','.del',function () {

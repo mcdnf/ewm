@@ -73,12 +73,15 @@ widgt.main = function () {
 
         }
     }
-    var $_clone;
     $(document).on('click', '.add1', function (event) {
         event.stopPropagation();
+        var $_clone = '<div class="input-box">'+
+                '<span>电话：</span>'+
+            '<input name="TEL" data-vr=\'{"maxlength":"20","required":"true"}\' type="tel">'+
+                '<i class="sub"></i>'+
+            '</div>';
         var $_parent = $(this).parent();
         if ($_parent.next().has('.sub').length) {
-            $_clone = $_parent.next().clone(true).find('input').val("").end();
             $_parent.nextAll().has('.sub').eq(-1).after($_clone);
         } else {
             $_parent.after($_clone);
@@ -86,7 +89,7 @@ widgt.main = function () {
     }).on('click', '.sub', function (event) {
         event.stopPropagation();
         $(this).parent().remove();
-    }).on('click', '.creat', function (event) {
+    }).on('click', '.creat>button', function (event) {
         event.stopPropagation();
         //点击生成按钮
 

@@ -114,14 +114,14 @@ var tools = window.tools || {
                     var _el = form.find('[name="'+k+'"]')[0];
                     $(_el).val(arr[0]);
                     $.each(arr,function (k1,v1) {
+                        if(!v1) return true;
                         k1 > 0 && tools.creatInputBox(_el,v1);
                     });
-                } else {
+                } else if(v){
                     if(k === 'HeadImg'){
                         form.find('[name="'+k+'"]').prev().attr("src", v);
                     } else {
-                        form.find('[name="'+k+'"]').val(v)
-                            .next('.text-count').find('span').text(v && v.length);
+                        form.find('[name="'+k+'"]').val(v);
                     }
                 }
 
@@ -237,7 +237,7 @@ var tools = window.tools || {
                     _val = _v.val(),
                     _data = _v.data('vr');
                 if(!_data) return true;
-                console.log(_data);
+
                 var _required = _data.required || '',
                     _maxlength = _data.maxlength || '',
                     _minlength = _data.minlength || '',
@@ -278,7 +278,7 @@ var tools = window.tools || {
                     }
                 }
                 if (_type === 'tel') {
-                    if(!_val.match(/^1[3|4|5|6|7|8]\d{9}$/g)) {
+                    if(!_val.match(/^\d{8,18}$/g)) {
                         tools.layer.toast('电话号码格式不正确');
                         _v.focus();
                         vr =false;
@@ -287,7 +287,7 @@ var tools = window.tools || {
                 }
 
                 if (_type === 'mobile') {
-                    if(!_val.match(/^[\d]{11}$/g)) {
+                    if(!_val.match(/^1[3|4|5|6|7|8]\d{9}$/g)) {
                         tools.layer.toast('手机号码格式不正确');
                         vr =false;
                         _v.focus();
