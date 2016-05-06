@@ -6,9 +6,6 @@
  */
 
 
-$('#header').on('click','.add',function () {
-    goAdd();
-});
 
 
 $('#addItem').on('click',function () {
@@ -41,22 +38,6 @@ $('#main').on('click','#scroller ul>li>i',function (event) {
     });
 });
 
-function goAdd() {
-    var $_h = $('#header');
-    $('#wrapper').hide();
-    $('#addUrl').show();
-    $_h.find('.h-center').text('名片').end()
-        .find('.h-left>a').text('取消').addClass('h-btn').end()
-        .find('.h-right>a').removeClass('add').text('保存').addClass('h-btn');
-}
-function goList() {
-    var $_h = $('#header');
-    $('#wrapper').show();
-    $('#addUrl').hide();
-    $_h.find('.h-center').text('名片').end()
-        .find('.h-left>a').text('').removeClass('h-btn').end()
-        .find('.h-right>a').addClass('add').text('').removeClass('h-btn');
-}
 
 function creatItem(parent,page,callBackFn) {
     var url ='?pagesize=10&'+

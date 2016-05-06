@@ -21,6 +21,7 @@ widgt.main = function () {
         index = editewm.ContentType < 3 ? editewm.ContentType : editewm.ContentType -1;
         $_form = $('#infoTab').find('.info-form').eq(index);
         $_item = $('#sortTab').find('li').eq(index);
+        $_form.find('input[name="ID"]').val(editewm.ID);
         var _arr,_data;
         switch (editewm.ContentType){
             case 0 :
@@ -105,7 +106,7 @@ widgt.main = function () {
                     api.addqrcode(_param,function (data) {
                         tools.layer.toast('修改成功!');
                         sessionStorage.removeItem('editewm');
-                        tools.goPage('creatIndex');
+                        //tools.goPage('creatIndex');
                     });
                 } else {
                     api.addqrcode(_param,function (data) {

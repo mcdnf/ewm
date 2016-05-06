@@ -15,6 +15,7 @@ $('#header').on('click','.add',function () {
 });
 
 $('#header').on('click','.h-left',function () {
+    empytInput($('#addUrl'),['Code','Note','Url']);
     goList();
 });
 $('#header').on('click','.h-right>a.h-btn',function () {
@@ -25,6 +26,7 @@ $('#header').on('click','.h-right>a.h-btn',function () {
     api.addurlcode(param,function (data) {
         console.log(data);
         if(data.Success){
+            empytInput($('#addUrl'),['Code','Note','Url']);
             goList();
         }
     })
@@ -39,7 +41,7 @@ $('#addItem').on('click',function () {
             '</div>'+
             '<div class="input-box">'+
             '<span>网址：</span>'+
-            '    <input name="Url" data-vr=\'{"maxlength":"100","required":"true"}\' type="text" placeholder="如http://2wm.cn">'+
+            '    <input name="Url" data-vr=\'{"maxlength":"100","type":"url","required":"true"}\' type="text" placeholder="如http://2wm.cn">'+
             '</div>'+
             '</div>'+
             '<div class="item-bd del" ></div>'+
@@ -79,7 +81,8 @@ function goAdd() {
     $('#addUrl').show();
     $_h.find('.h-center').text('网址导航').end()
         .find('.h-left>a').text('取消').addClass('h-btn').end()
-        .find('.h-right>a').removeClass('add').text('保存').addClass('h-btn');
+        .find('.menu').hide().end()
+        .find('.h-right>a').eq(1).removeClass('add').text('保存').addClass('h-btn');
     // var item =$('#addItem').find('.url-item:gt(2)').remove()
     //     .end().find('input').val('');
 }
@@ -89,7 +92,8 @@ function goList() {
     $('#addUrl').hide();
     $_h.find('.h-center').text('网址导航').end()
         .find('.h-left>a').text('').removeClass('h-btn').end()
-        .find('.h-right>a').addClass('add').text('').removeClass('h-btn');
+        .find('.menu').show().end()
+        .find('.h-right>a').eq(1).addClass('add').text('').removeClass('h-btn');
     load_content('refresh');
 }
 
@@ -99,7 +103,6 @@ function creatItem(parent,page,callBackFn) {
     var url ='?pagesize=10&'+
         'pageindex='+page+'&codetype=1&catalogid=0';
     api.geturlcodedatalist(url, function (data) {
-        console.log(data);
         if(data.Success){
             if(!data.Data) {
                 tools.layer.toast('没有数据');
@@ -172,21 +175,37 @@ function del(el) {
 function edit(el) {
     var Content = $(el).parent().parent().data('item');
     goAdd();
-    var _note = $('#addUrl').find('input[name="Note"]');
-    var _url = $('#addUrl').find('input[name="Url"]');
-    if(JSON.parse(Content.Content).length > _note.length){
-        var $clone = $('#addUrl').find('.item-new').clone();
-        for(var i = 0; i < JSON.parse(Content.Content).length - _note.length; i++){
-            $('#addItem'.prev($clone));
+    $('#addUrl').find('input[name="Code"]').val(Content.code);;
+    if(JSON.parse(Content.Content).length > 1){
+        var clone = '<div class="url-item item-new">'+
+            '<div class="item-hd">'+
+            '<div class="input-box">'+
+            '<span>标题：</span>'+
+            '    <input name="Note" data-vr=\'{"maxlength":"100","required":"true"}\' type="text" placeholder="请输入标题">'+
+            '</div>'+
+            '<div class="input-box">'+
+            '<span>网址：</span>'+
+            '    <input name="Url" data-vr=\'{"maxlength":"100","type":"url","required":"true"}\' type="text" placeholder="如http://2wm.cn">'+
+            '</div>'+
+            '</div>'+
+            '<div class="item-bd del" ></div>'+
+            '</div>';
+        for(var i = 0; i < JSON.parse(Content.Content).length - 1; i++){
+            $('#addItem').prev().after(clone);
         }
     }
-    _note = $('#addUrl').find('input[name="Note"]');
-    _url = $('#addUrl').find('input[name="Url"]');
+    var _note = $('#addUrl').find('input[name="Note"]'),
+        _url = $('#addUrl').find('input[name="Url"]');
     $.each(JSON.parse(Content.Content),function (k,v) {
         $(_note[k]).val(v.Note);
         $(_url[k]).val(v.Url);
     })
+}
 
-
+function empytInput(Form,nameArr) {
+    Form.find('.item-new').remove();
+    $.each(nameArr,function (k,v) {
+        Form.find('input[name="'+v+'"]').val('');
+    })
 }
 

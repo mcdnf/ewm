@@ -58,7 +58,7 @@ function creatItem(parent,page,callBackFn) {
                     item = {
                         ContentType :  val.ContentType,
                         Content : val.Content,
-                        Id : val.Id
+                        ID : val.Id
                     };
                 var $_item = $(
                     '<li>' +

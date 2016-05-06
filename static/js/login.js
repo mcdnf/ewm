@@ -9,10 +9,8 @@ $("#loginSubmit").on('click',function () {
     api.login(param,function (data) {
         if(data.Success){
             sessionStorage.setItem('isLogin',true);
-            tools.layer.toast('登录成功',function () {
-                var goLogin = sessionStorage.getItem('goLogin');
-                tools.goPage(goLogin || 'creatIndex');
-            });
+            var goLogin = sessionStorage.getItem('goLogin');
+            tools.goPage(goLogin || 'creatIndex');
         } else{
             tools.layer.toast('用户名或密码错误!');
         }

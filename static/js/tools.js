@@ -131,7 +131,7 @@ var tools = window.tools || {
             el1.addClass('on').siblings().removeClass('on');
             el2.addClass('on').siblings().removeClass('on');
         },
-        layer_getImg : function() {
+        layer_getImg : function(addewm) {
             var _content = "";
             _content += '<ul>';
             _content += '  <li class="input-box">从手机中选取';
@@ -148,15 +148,22 @@ var tools = window.tools || {
                 shadeClose: true, //点击遮罩关闭
                 content: _content,
                 success: function(layero, index){
-                    $("#up").uploadPreview({ Img: "ImgPr", Width: 120, Height: 120 ,
-                        Callback : function(){
+                    if(addewm){
+                        $('#up').change(function () {
                             layer.closeAll();
-                            $('#ImgPr').cropper({
-                                aspectRatio: 1,
-                                strict: false
-                            });
-                        }
-                    });
+                            tools.readFile($(this));
+                        })
+                    } else {
+                        $("#up").uploadPreview({ Img: "ImgPr", Width: 120, Height: 120 ,
+                            Callback : function(){
+                                layer.closeAll();
+                                $('#ImgPr').cropper({
+                                    aspectRatio: 1,
+                                    strict: false
+                                });
+                            }
+                        });
+                    }
                 }
             });
 
@@ -314,6 +321,39 @@ var tools = window.tools || {
                 }
             });
             return vr;
+        },
+        readFile : function (el){
+            var file = el[0].files[0],rel;
+            //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件
+            if(!/image\/\w+/.test(file.type)){
+                alert("请确保文件为图像类型");
+                return false;
+            }
+            if(file.size/1024 > 400) {
+                tools.layer.toast("选择文件必须小于400K");
+                return false;
+            }
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(e){
+                rel = {
+                    name : file.name,
+                    imgurl : e.currentTarget.result.split(',')[1]
+                }
+                var param2 = new FormData();
+                param2.append("filename",rel.imgurl);
+                param2.append("ResName",rel.name);
+                api.addhand(param2,function (data) {
+                    console.log(data);
+                    if (data.Success) {
+                        var param = new FormData($('#addCard')[0]);
+                        var _imgurl = data.Data;
+                        $(upFile.el).text('上传成功');
+                        $(upFile.el).prev().val(_imgurl);
+                        back();
+                    }
+                });
+            }
         }
     };
 

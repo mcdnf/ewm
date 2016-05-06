@@ -3,6 +3,7 @@
 <link rel="import" href="/static/widget/head/head.html?__inline">
 <body>
 <div id="view" class="view">
+    <!-- @require static/js/header.js -->
     <div id="header" class="header">
         <div class="h-left">
             <a></a>
@@ -10,7 +11,18 @@
         <div class="h-center">
             <a>网址导航</a>
         </div>
-        <div class="h-right">
+        <div class="h-right h-right2">
+            <a class="menu"></a>
+            <div class="menu-bg">
+                <ul>
+                    <li>
+                        <a href="/page/creatIndex.html">二维码生成</a>
+                    </li>
+                    <li><a href="page/vcardList.html">名片</a></li>
+                    <!--<li>富文本</li>-->
+                    <li><a href="page/vcardList.html">网址导航</a></li>
+                </ul>
+            </div>
             <a class="add"></a>
         </div>
     </div>
@@ -25,6 +37,7 @@
         <form class="url-form" id="addUrl">
             <input name="CatalogId" type="hidden" value="0">
             <input name="CodeType" type="hidden" value="1">
+            <input name="Code" type="hidden">
             <div class="url-item">
                 <div class="item-hd">
                     <div class="input-box">
@@ -33,7 +46,7 @@
                     </div>
                     <div class="input-box">
                         <span>网址：</span>
-                        <input name="Url" data-vr='{"maxlength":"100","required":"true"}' type="text" placeholder="如http://2wm.cn">
+                        <input name="Url" data-vr='{"maxlength":"100","type":"url","required":"true"}' type="text" placeholder="如http://2wm.cn">
                     </div>
                 </div>
             </div>

@@ -19,8 +19,8 @@
     <div id="main" class="main">
         <form class="add-form" enctype="multipart/form-data" id="addCard">
             <input  name="CodeType" type="hidden" value="2">
-            <input  name="TemplateCode" type="default">
-            <input  name="backImg" type="hidden">
+            <input  name="TemplateCode" type="hidden" value="default">
+            <input  name="BackImg" type="hidden">
             <div class="add-head hide">
                 <div class="head-hd hide" id="Portrait">
                     <img id="" src="../static/img/p16.png" alt="">
@@ -103,14 +103,14 @@
             </div>
         </form>
         <div id="selectTpl">
-            <div class="swiper-container swiper-tpl">
+            <div class="swiper-container swiper-tpl" id="swiper-tpl">
                 <div class="swiper-wrapper"></div>
-                <div class="swiper-pagination"></div>
+                <div class="swiper-pagination" id="pagination-tpl"></div>
             </div>
             <p>选择背景</p>
-            <div class="swiper-container swiper-bg">
+            <div class="swiper-container swiper-bg" id="swiper-bg">
                 <div class="swiper-wrapper"></div>
-                <div class="swiper-pagination"></div>
+                <div class="swiper-pagination" id="pagination-bg"></div>
             </div>
         </div>
         <div id="change"></div>

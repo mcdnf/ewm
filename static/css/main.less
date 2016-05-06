@@ -604,28 +604,52 @@
     display: none;
     p{
       text-align: center;
-      line-height: 1rem;
-      height: 1rem;
+      line-height: 2.5rem;
+      height: 2.5rem;
       font-size: 1rem;
-      margin-bottom: .5rem;
     }
     .swiper-tpl {
       width: 100%;
-      height: 75%;
       margin: 0 auto;
       img{
         vertical-align: top;
         width: 100%;
       }
     }
+    .tipp{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      color:#fff;
+      background: rgba(0,0,0,.8);
+      padding: .8rem 0;
+      p{
+        margin: 0;
+        font-size: 1.2rem;
+        text-align: left;
+        line-height: 2rem;
+        padding: 0 1.5rem;
+        height: auto;
+        &:first-child{
+          line-height: 2.5rem;
+        }
+      }
+    }
+    .swiper-pagination-custom{
+      padding: 1.5rem;
+      position: absolute;
+      bottom: 4rem;
+      text-align: right;
+      color: rgba(255,255,255,1);
+    }
     .swiper-bg{
-      height: 20%;
+      height: 6.5rem;
       width: 100%;
+      padding-bottom: .5rem;
       img{
-        vertical-align: top;
-        height: 6.5rem;
-        width: 6.5rem;
-        margin: 0 .5rem;
+        height: 6rem;
+        width: 6rem;
       }
       .swiper-slide {
         text-align: center;
@@ -633,16 +657,16 @@
         background: #fff;
         width: 60%;
         position: relative;
-        &.swiper-slide-active:after{
+        &.on:after{
           content: '';
           display: block;
           position: absolute;
-          width: 2rem;
-          height: 2rem;
-          right: -1.5rem;
+          width: 1.5rem;
+          height: 1.5rem;
+          right: 1rem;
           bottom: .5rem;
           background: url("../img/p25.png") no-repeat right center;
-          background-size: 2rem;
+          background-size: 1.5rem;
           z-index: 9999;
         }
       }
