@@ -15,10 +15,8 @@ tools.vr($('#addCard'));
 if(editVcard){
     var $card = $('#addCard');
     editVcard = JSON.parse(editVcard);
-    console.log(editVcard);
     $('#addVcardMore').remove();
     $card.find('.hide').removeClass('hide');
-    console.log('editVcard.Content',editVcard.Content);
     tools.setInputVals($card,editVcard.Content);
 }
 
@@ -127,7 +125,6 @@ $('#footer').on('click',function () {
     var BackImg = $card.find('input[name="BackImg"]').val();
     api.gettemplatelist('?type=0',function (data) {
         if(data.Success){
-            console.log(data);
             $('#addCard').hide();
             $('#selectTpl').show();
             $('#footer').hide();
@@ -174,7 +171,6 @@ $('#footer').on('click',function () {
                 creatbg(data.Data[index1].BackImageList,index2);
             },120);
         }
-        console.log(data);
     });
     function creatbg(BackImageList,index) {
         var bgbox = $('#selectTpl').find('#swiper-bg .swiper-wrapper');

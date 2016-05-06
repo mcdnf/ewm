@@ -343,7 +343,7 @@ var tools = window.tools || {
                 var param2 = new FormData();
                 param2.append("filename",rel.imgurl);
                 param2.append("ResName",rel.name);
-                api.addhand(param2,function (data) {
+                api.decodeqrcode(param2,function (data) {
                     console.log(data);
                     if (data.Success) {
                         var param = new FormData($('#addCard')[0]);

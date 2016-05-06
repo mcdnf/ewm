@@ -3,6 +3,7 @@
 <link rel="import" href="/static/widget/head/head.html?__inline">
 <body>
 <div id="view" class="view">
+    <!-- @require static/js/header.js -->
     <div id="header" class="header">
         <div class="h-left">
             <a></a>
@@ -10,7 +11,18 @@
         <div class="h-center">
             <a>静态二维码</a>
         </div>
-        <div class="h-right">
+        <div class="h-right h-right2">
+            <a class="menu"></a>
+            <div class="menu-bg">
+                <ul>
+                    <li>
+                        <a href="/page/creatIndex.html">二维码生成</a>
+                    </li>
+                    <li><a href="page/vcardList.html">名片</a></li>
+                    <!--<li>富文本</li>-->
+                    <li><a href="page/vcardList.html">网址导航</a></li>
+                </ul>
+            </div>
             <a href="/index.html" class="add"></a>
         </div>
     </div>

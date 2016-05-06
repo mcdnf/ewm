@@ -95,10 +95,10 @@ var api ={
     //解析二维码
     decodeqrcode: function (param, callBackFn) {
         tools.ajax.post(
-            website.qrcode + 'edit/',
+            website.qrcode + 'decode/',
             param,
             callBackFn
-        );
+        )
     },
     //获取二维码列表
     getqrcodelist: function (url,callBackFn) {
