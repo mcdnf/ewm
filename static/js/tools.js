@@ -171,6 +171,7 @@ var tools = window.tools || {
         ewmStyle : function (text,el,size,imgEl,callback) {
             var _size = $(window).width()*(size || .7);
             var options = {
+                mode:4,// 4 是中心图片
                 size: _size,
                 text: text,
                 // render: "image",//格式
