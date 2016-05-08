@@ -32,7 +32,8 @@ $('#header').on('click','.h-right>a.h-btn',function () {
     })
 });
 
-$('#addItem').on('click',function () {
+$('#addItem').on('click',function (event) {
+    event.stopPropagation();
     var clone = '<div class="url-item item-new">'+
             '<div class="item-hd">'+
             '<div class="input-box">'+
@@ -57,7 +58,10 @@ $('#main').on('click','#scroller ul>li>i',function (event) {
     event.stopPropagation();
     var text = 'http://2v.ms/' + $(this).parent().data('item').code;
     if(!$('#showEwmBox').length){
-        $('#view').after('<div id="showEwmBox" style="width: 100%;display: none;padding: 10px 0;"><div id="showEwm"></div><p>长安保存到手机</p></div>');
+        $('#view').after('<div id="showEwmBox" style="width: 100%;display: none;padding: 10px 0;">' +
+            '<div id="showEwm"></div>' +
+            '<p>长按识别二维码或将二维码图片保存至手机相册</p>' +
+            '</div>');
     }
     tools.ewmStyle(text,$('#showEwm'),.8);
     var _size = $(window).width()*.85;
@@ -101,19 +105,21 @@ function goList() {
 
 function creatItem(parent,page,callBackFn) {
     var url ='?pagesize=10&'+
-        'pageindex='+page+'&codetype=1&catalogid=0';
+        'pageindex='+page+'&codetype=' + listtype +
+        '&catalogid=' + catalogid;
     api.geturlcodedatalist(url, function (data) {
         if(data.Success){
             if(!data.Data) {
-                tools.layer.toast('没有数据');
+                tools.layer.toast('当前目录没有数据！');
                 return;
             }
+            next_page = page;
             if(data.Data.List.length === 0) {
-                next_page = page;
+                next_page--;
                 tools.layer.toast('没有更多数据了');
-                eval(callBackFn);
                 return;
             }
+            next_page = page;
             for (var i = 0; i < data.Data.List.length; i++) {
                 var val = data.Data.List[i],
                     item = {
@@ -122,7 +128,9 @@ function creatItem(parent,page,callBackFn) {
                     };
                 var spanArr = []
                     arr = JSON.parse(val.Content);
+                if(!arr[0]) return false;
                 $.each(arr,function (k,v) {
+                    if(!v.Note) return false;
                     spanArr.push('<p><span>'+v.Note+'：</span>'+v.Url+'</p>');
                 });
                 var $_item = $(
@@ -142,7 +150,7 @@ function creatItem(parent,page,callBackFn) {
                     .data('item',item)
                     .appendTo(parent);
             }
-            eval(callBackFn);
+            callBackFn();
         }  else {
             tools.setGoLogin();
         }

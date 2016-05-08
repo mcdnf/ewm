@@ -86,12 +86,6 @@
             .border-r;
             li{
               .border-t;
-              ul{
-                position: absolute;
-                top: -1px;
-                right: -8rem;
-                z-index: 1001;
-              }
               &:first-child{
                 position: relative;
                 .border-n;
@@ -110,6 +104,10 @@
                   right: 0;
                 }
               }
+            }
+            &.child{
+              right: -12rem;
+              display: none;
             }
           }
         }

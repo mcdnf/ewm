@@ -68,12 +68,15 @@ var wode = function () {
         } else {
             api.userEdit(_param,function (data) {
                 if(data.Success)  {
-                    _naem = $_form.find('input').attr('name');
-                    _value = $_form.find('input:checked').val();
+                    var _naem = $_form.find('input').attr('name');
+                    var _value = $_form.find('input').val();
                     if(_naem == Portrait) {
                         $("#" + _naem).find('img').attr('src',_value);
                         back();
                     } else {
+                        if(_naem === "Gender"){
+                            _value = $_form.find('input:checked').val();
+                        }
                         back(_naem,_value);
                     }
                 }
@@ -106,20 +109,17 @@ var wode = function () {
         }
         $('#change').append($_forme);
         if(name === "Portrait"){
-            tools.layer_getImg('back()');
+            tools.layer_getImg();
         }
     }
 
-
-    function setGender(id,v) {
-        if(v === "male"){
-            $('#' + id).text('男').data('Gender',v);
-        } else {
-            $('#' + id).text('女').data('Gender',v);
-        }
+}
+function setGender(id,v) {
+    if(v === "male"){
+        $('#' + id).text('男').data('Gender',v);
+    } else {
+        $('#' + id).text('女').data('Gender',v);
     }
-
-
 }
 
 function back(name,text) {
@@ -129,7 +129,7 @@ function back(name,text) {
         .find('.h-left').hide().end()
         .find('.h-right').hide();
     if(name){
-        if(name === "Gender") setGender(name,text);
+        if(name === "Gender") setGender(name,text)
         else $('#' + name).text(text);
     }
     $('#change').empty();

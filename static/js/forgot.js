@@ -67,7 +67,7 @@ var forgot = function () {
                     console.log(data);
                     if(data.Success){
                         tools.layer.toast('修改成功',function () {
-                            tools.goPage('goLogin');
+                            tools.goPage('login');
                         });
                     } else {
                         tools.layer.toast('修改失败');

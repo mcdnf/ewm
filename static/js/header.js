@@ -1,50 +1,84 @@
 // @require /static/js/api.js
+// @require /static/plugin/underscore-min.js
 
 var widgt = window.widgt || {};
+var pageName = tools.getPageName();
+var listtype = listPage[pageName] ,catalogid = 0;
 
 widgt.header = function () {
     $('#header').on('click', '.menu', function (event) {
         event.stopPropagation();
         var _this = $(this);
-        _this.next('.menu-bg').find('>ul').slideToggle(500,function () {
-            $(this).find('ul').show();
-        });
+        $('#catalogMenu').find('ul.on').slideToggle(500);
         $(document).on('click', function () {
-            _this.next('.menu-bg').find('>ul').slideUp(500);
+            $('#catalogMenu').find('ul.on').slideUp(500);
         });
         widgt.hide("header");
     });
 
-
     $('#header').on('click', '.menu-bg>ul>li', function (event) {
         event.stopPropagation();
-        if($(this).find('ul').length){
-            $(this).find('ul').animate({
-                right : '-.8rem',
-            }, 1000, function() {
+        var $ul = $(this).parent();
+        var _id = $(this).data('id');
+        var _Pid = $(this).data('parentid');
+        if($(this).hasClass('back-parent')) {
+            $('#Id' + _Pid).show();
+            $ul.addClass('on').animate({
+                right: '-12rem',
+            }, 600, function () {
+                $ul.hide().removeClass('on');
+            });
+            return;
+        };
+        catalogid = _id;
+        upScroll();
+        if ($('#Id' + _id).length) {
+            $('#Id' + _id).addClass('on').show().animate({
+                right: '.8rem',
+            }, 600, function () {
+                $ul.hide().removeClass('on');
             });
         }
     });
-    // $('#header').on('click', '.menu-bg>ul>li>ul>li:first-child', function (event) {
-    //     event.stopPropagation();
-    //     $(this).parent().animate({
-    //         right : '-8rem',
-    //     }, 1000, function() {
-    //     });
-    //
-    // });
+
     var isLogin = sessionStorage.getItem('isLogin');
-    if(isLogin) {
+    if (isLogin) {
         $('#header').find('.back').show();
     } else {
         $('#header').find('.back').hide();
     }
+    api.getcataloglist(listtype, function (data) {
+        if(data.Success && data.Data.List){
+            var list = data.Data.List,
+                $list = $('#catalogMenu'),
+                Pid = 'root',
+                ulArrRel = [],
+                ParentIdArr = [];
+            $list.append('<ul class="on" id="Idroot">'+
+                '<li data-id="0">全部类别 </li>'+
+                '</ul>');
+            list = _.groupBy (list, function (item){
+                return item.ParentId;
+            });
+            $.each(list,function (k,v) {
+                var arr =[];
+                arr.push('<ul class="child" id="Id'+v[0].ParentId+'">');
+                arr.push('<li class="back-parent" data-parentid="'+Pid+'">返回</li>');
+                $.each(v, function (x,y) {
+                    arr.push('<li data-id="'+y.Id+'">'+y.Name+'</li>');
+                });
+                arr.push('</ul>');
+                ulArrRel = ulArrRel.concat(arr);
+                Pid = k;
+            });
+            $list.append(ulArrRel.join(''));
+        }
+    })
 }
 
-
+//判断是否登录
 api.getuser(function (data) {
-    console.log(data)
-    if(data.Success){
+    if (data.Success) {
         $('#header').find('.menu').css({'display': 'block'});
         widgt.header();
         $('#login').text('退出');

@@ -7,10 +7,10 @@
 
 var creatIndex = {
     getList : function (pageindex ,fn) {
-        var url = '?pagesize=10&' +
-            'pageindex=' + pageindex + '&' +
-            'listtype=0&' +
-            'catalogid=0';
+        var url = '?pagesize=10' +
+            '&pageindex=' + pageindex +
+            '&listtype=' + listtype +
+            '&catalogid=' + catalogid;
         api.getqrcodelist(url,fn);
     },
     add :function () {
@@ -42,14 +42,13 @@ function creatItem(parent,page,callBackFn) {
     creatIndex.getList(page, function (data) {
         if(data.Success){
             if(!data.Data) {
-                tools.layer.toast('没有数据，快去添加数据');
-                tools.goPage('index');
+                tools.layer.toast('当前目录没有数据！');
                 return;
             }
+            next_page = page;
             if(data.Data.List.length === 0) {
-                next_page = page;
+                next_page--;
                 tools.layer.toast('没有更多数据了');
-                eval(callBackFn);
                 return;
             }
             for (var i = 0; i < data.Data.List.length; i++) {
@@ -73,7 +72,7 @@ function creatItem(parent,page,callBackFn) {
                     .data('item',item)
                     .appendTo(parent);
             }
-            eval(callBackFn);
+            callBackFn();
         }  else {
             tools.setGoLogin();
         }
@@ -86,7 +85,10 @@ $('#main').on('click','#scroller ul>li>i',function (event) {
     event.stopPropagation();
     var text = $(this).parent().data('item').Content;
     if(!$('#showEwmBox').length){
-        $('#view').after('<div id="showEwmBox" style="width: 100%;display: none;padding: 10px 0;"><div id="showEwm"></div><p>长安保存到手机</p></div>');
+        $('#view').after('<div id="showEwmBox" style="width: 100%;display: none;padding: 10px 0;">' +
+            '<div id="showEwm"></div>' +
+            '<p>长按识别二维码或将二维码图片保存至手机相册</p>' +
+            '</div>');
     }
     tools.ewmStyle(text,$('#showEwm'),.8);
     var _size = $(window).width()*.85;

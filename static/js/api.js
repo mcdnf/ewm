@@ -153,6 +153,11 @@ var api ={
             website.catalog + 'getcataloglist/?catatype=' + catatype,
             callBackFn
         );
+    },
+    getcatalog  : function (id,callBackFn) {
+        tools.ajax.get(
+            website.catalog + 'getcatalog/?id=' + id,
+            callBackFn
+        );
     }
-    
 };

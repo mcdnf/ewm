@@ -39,14 +39,10 @@ widgt.footer = function() {
         }
         widgt.hide("footer");
     });
-
-    var isLogin = sessionStorage.getItem('isLogin');
-    if(isLogin){
-        $('#login').text('退出');
-    } else {
-        $('#login').text('登录');
-    }
+    
+    
     $('#login').on('click',function () {
+        var isLogin = sessionStorage.getItem('isLogin');
         if(isLogin){
             api.outlogin(document.cookie,function (data){
                 console.log(data);
