@@ -83,6 +83,7 @@ function creatItem(parent,page,callBackFn) {
 
 $('#main').on('click','#scroller ul>li>i',function (event) {
     event.stopPropagation();
+    widgt.hide();
     var text = $(this).parent().data('item').Content;
     if(!$('#showEwmBox').length){
         $('#view').after('<div id="showEwmBox" style="width: 100%;display: none;padding: 10px 0;">' +

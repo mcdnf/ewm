@@ -44,8 +44,12 @@ widgt.header = function () {
     var isLogin = sessionStorage.getItem('isLogin');
     if (isLogin) {
         $('#header').find('.back').show();
+        $('#header').find('.menu').css({'display': 'block'});
+        $('#login').text('退出');
+        $('#footer .erqode').find('a').attr('href',pageUrl + '/page/creatIndex.html');
     } else {
         $('#header').find('.back').hide();
+        $('#login').text('登录');
     }
     api.getcataloglist(listtype, function (data) {
         if(data.Success && data.Data.List){
@@ -79,13 +83,10 @@ widgt.header = function () {
 //判断是否登录
 api.getuser(function (data) {
     if (data.Success) {
-        $('#header').find('.menu').css({'display': 'block'});
+        sessionStorage.setItem('isLogin','true');
         widgt.header();
-        $('#login').text('退出');
     } else {
         sessionStorage.removeItem('isLogin');
-        $('#login').text('登录');
-
     }
 });
 

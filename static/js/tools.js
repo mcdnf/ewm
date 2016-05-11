@@ -171,19 +171,18 @@ var tools = window.tools || {
         ewmStyle : function (text,el,size,imgEl,callback) {
             var _size = $(window).width()*(size || .7);
             var options = {
-                mode:4,// 4 是中心图片
                 size: _size,
                 text: text,
-                // render: "image",//格式
-                render: "canvas",//格式
+                render: "image",//格式
                 quiet: 1,
-                ecLevel : 'H',
-                imagesize: 0.1
+                ecLevel : 'H'
             };
             if(imgEl){
                 tools.imgToBase64(imgEl.attr('src'),function (dataURL) {
                     imgEl[0].src = dataURL;
                     options.image = imgEl[0];
+                    options.imagesize = 0.1;
+                    options.mode = 4;// 4 是中心图片
                     el.empty().qrcode(options);
                     callback();
                 });

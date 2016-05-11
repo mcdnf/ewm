@@ -120,5 +120,7 @@ function upScroll() {
 
 $(document).on('click', '#scroller li', function (event) {
     event.stopPropagation();
+    widgt.hide();
     $(this).toggleClass('on');
+    scrollRefresh();
 })

@@ -56,6 +56,7 @@ $('#addUrl').on('click','.del',function () {
 
 $('#main').on('click','#scroller ul>li>i',function (event) {
     event.stopPropagation();
+    widgt.hide();
     var text = 'http://2v.ms/' + $(this).parent().data('item').code;
     if(!$('#showEwmBox').length){
         $('#view').after('<div id="showEwmBox" style="width: 100%;display: none;padding: 10px 0;">' +
@@ -98,7 +99,7 @@ function goList() {
         .find('.h-left>a').text('').removeClass('h-btn').end()
         .find('.menu').show().end()
         .find('.h-right>a').eq(1).addClass('add').text('').removeClass('h-btn');
-    load_content('refresh');
+    scrollRefresh();
 }
 
 
