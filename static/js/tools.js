@@ -103,15 +103,25 @@ var tools = window.tools || {
         },
         setInputVal : function (form,data){
             $.each(data,function (k,v) {
-                form.find('[name="'+k+'"]').val(v)
-                    .next('.text-count').find('span').text(v && v.length);
+                var arr = v ? v.split(',') : v;
+                if(arr && arr.length > 1) {
+                    var _el = form.find('input[name="'+k+'"]')[0];
+                    $(_el).val(arr[0]);
+                    $.each(arr,function (k1,v1) {
+                        if(!v1) return true;
+                        k1 > 0 && tools.creatInputBox(_el,v1,true);
+                    });
+                } else {
+                    form.find('input[name="'+k+'"]').val(v)
+                        .next('.text-count').find('span').text(v && v.length);
+                }
             })
         },
         setInputVals : function (form,data){
             $.each(data,function (k,v) {
                 var arr = v ? v.split(',') : v;
-                if(arr.length > 1) {
-                    var _el = form.find('[name="'+k+'"]')[0];
+                if(arr && arr.length > 1) {
+                    var _el = form.find('input[name="'+k+'"]')[0];
                     $(_el).val(arr[0]);
                     $.each(arr,function (k1,v1) {
                         if(!v1) return true;
@@ -119,9 +129,9 @@ var tools = window.tools || {
                     });
                 } else if(v){
                     if(k === 'HeadImg'){
-                        form.find('[name="'+k+'"]').prev().attr("src", v);
+                        form.find('input[name="'+k+'"]').prev().attr("src", v);
                     } else {
-                        form.find('[name="'+k+'"]').val(v);
+                        form.find('input[name="'+k+'"]').val(v);
                     }
                 }
 
@@ -200,14 +210,13 @@ var tools = window.tools || {
             document.cookie="WJUserToken=John Smith; expires=Thu, 18 Dec 2013 12:00:00 GMT; path=/";
             document.cookie = "WJUserToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/ ";
         },
-        creatInputBox : function(el,text) {
-            var _el = $(el),
-                _input = _el.prev('input');
-            _el.parent().parent().append(
+        creatInputBox : function(el,text,ismian) {
+            var _el = $(el);
+            _el.parent().after(
                 '<div class="input-box">' +
                 '<span>'+_el.siblings('span').text()+'</span>'+
-                '<input type="'+_input.attr("type")+'" name="'+_input.attr("name")+'" placeholder="'+_input.attr("placeholder")+'" value="'+ (text || "") +'">'+
-                '<i class="del"></i>'+
+                '<input type="'+_el.attr("type")+'" name="'+_el.attr("name")+'" placeholder="'+_el.attr("placeholder")+'" value="'+ (text || "") +'">'+
+                '<i class="'+(ismian ? 'sub' : 'del')+'"></i>'+
                 '</div>'
             );
         },

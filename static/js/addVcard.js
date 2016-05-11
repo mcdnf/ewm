@@ -75,7 +75,7 @@ $('#header').on('click','.h-right>a.h-btn',function () {
 });
 
 $('#main').on('click','.add',function () {
-    tools.creatInputBox(this);
+    tools.creatInputBox($(this).prev());
 });
 $('#main').on('click','.del',function () {
     $(this).parent().remove();

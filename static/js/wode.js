@@ -16,6 +16,9 @@ var wode = function () {
                 }
                 else $('#' + k).text(v);
             });
+            sessionStorage.setItem('isLogin','true');
+            $('#login').text('退出');
+            $('#footer .erqode').find('a').attr('href',pageUrl + '/page/creatIndex.html');
         } else {
             tools.setGoLogin();
         }

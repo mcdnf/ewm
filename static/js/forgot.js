@@ -12,6 +12,9 @@ var forgot = function () {
     $('#forgotNext').on('click',function (event) {
         event.stopPropagation();
         var $_item = $('#forgot').find('.forgot-item.on');
+        if(!tools.required($_item)){
+            return;
+        }
         if($_item.hasClass('forgot1')){
             var _account = $_item.find('input[name="account"]').val();
             var _code = $_item.find('input[name="code"]').val();

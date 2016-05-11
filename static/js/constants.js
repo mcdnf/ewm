@@ -33,8 +33,8 @@ var pageUrl = "http://mobile.2wm.cn/";
 
 var listPage = {
     'creatIndex' : 0,
-    'urlList' : 1,
-    'vcardList' : 2
+    'urlList' : 4,
+    'vcardList' : 1
 }
 
 var config = {

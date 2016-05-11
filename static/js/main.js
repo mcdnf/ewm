@@ -39,18 +39,21 @@ widgt.main = function () {
                 break;
             case 2 :
                 _arr = editewm.Content.split(';');
-                console.log(_arr);
                 _data = {};
                 $.each(_arr,function (k,v) {
-                    var ite = v.split(':');
-                    if(k === 0){
+                    var ite = v && v.split(':');
+                    if(ite[0] == 'TEL'){
+                        if(_data['TEL']){
+                            _data['TEL'] += (',' + ite[1]);
+                        } else {
+                            _data['TEL'] =  ite[1];
+                        }
+                    } else if(k === 0){
                         _data[ite[1]] = ite[2];
                     } else {
                         _data[ite[0]] = ite[1];
                     }
                 });
-
-                console.log(_data);
                 tools.setOn($_form,$_item);
                 tools.setInputVal($_form,_data);
                 break;
@@ -106,7 +109,7 @@ widgt.main = function () {
                     api.addqrcode(_param,function (data) {
                         tools.layer.toast('修改成功!');
                         sessionStorage.removeItem('editewm');
-                        //tools.goPage('creatIndex');
+                        tools.goPage('creatIndex');
                     });
                 } else {
                     api.addqrcode(_param,function (data) {
