@@ -1,4 +1,5 @@
 /* @require /static/plugin/jquery-2.2.0.min.js
+/* @require /static/plugin/fastclick.min.js
  * @require /static/plugin/layer/layer.js
  * @require /static/js/constants.js
  * @require /static/plugin/uploadImg.js
