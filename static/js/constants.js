@@ -1,5 +1,6 @@
 /*
  * @require /static/plugin/jquery-2.2.0.min.js
+ * @require /static/plugin/fastclick.min.js
  **/
 
 //接口地址
@@ -61,5 +62,9 @@ widgt.hide = function (t) {
 
 $(document).on('click', function () {
     widgt.hide();
+});
+
+$(function () {
+    FastClick.attach(document.body);
 });
 

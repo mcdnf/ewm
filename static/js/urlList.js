@@ -106,7 +106,7 @@ function goList() {
 
 function creatItem(parent,page,callBackFn) {
     var url ='?pagesize=10&'+
-        'pageindex='+page+'&codetype=' + listtype +
+        'pageindex='+page+'&codetype=1' +
         '&catalogid=' + catalogid;
     api.geturlcodedatalist(url, function (data) {
         if(data.Success){

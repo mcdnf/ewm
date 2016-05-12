@@ -64,7 +64,7 @@ $('#main').on('click','#scroller ul>li>i',function (event) {
 
 function creatItem(parent,page,callBackFn) {
     var url ='?pagesize=10&'+
-        'pageindex='+page+'&codetype=' + listtype +
+        'pageindex='+page+'&codetype=2' +
         '&catalogid=' + catalogid;
     api.geturlcodedatalist(url, function (data) {
         if(data.Success){

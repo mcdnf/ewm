@@ -1,5 +1,4 @@
 /* @require /static/plugin/jquery-2.2.0.min.js
-/* @require /static/plugin/fastclick.min.js
  * @require /static/plugin/layer/layer.js
  * @require /static/js/constants.js
  * @require /static/plugin/uploadImg.js
@@ -106,14 +105,14 @@ var tools = window.tools || {
             $.each(data,function (k,v) {
                 var arr = v ? v.split(',') : v;
                 if(arr && arr.length > 1) {
-                    var _el = form.find('input[name="'+k+'"]')[0];
+                    var _el = form.find('[name="'+k+'"]')[0];
                     $(_el).val(arr[0]);
                     $.each(arr,function (k1,v1) {
                         if(!v1) return true;
                         k1 > 0 && tools.creatInputBox(_el,v1,true);
                     });
                 } else {
-                    form.find('input[name="'+k+'"]').val(v)
+                    form.find('[name="'+k+'"]').val(v)
                         .next('.text-count').find('span').text(v && v.length);
                 }
             })
@@ -122,7 +121,7 @@ var tools = window.tools || {
             $.each(data,function (k,v) {
                 var arr = v ? v.split(',') : v;
                 if(arr && arr.length > 1) {
-                    var _el = form.find('input[name="'+k+'"]')[0];
+                    var _el = form.find('[name="'+k+'"]')[0];
                     $(_el).val(arr[0]);
                     $.each(arr,function (k1,v1) {
                         if(!v1) return true;
@@ -130,9 +129,9 @@ var tools = window.tools || {
                     });
                 } else if(v){
                     if(k === 'HeadImg'){
-                        form.find('input[name="'+k+'"]').prev().attr("src", v);
+                        form.find('[name="'+k+'"]').prev().attr("src", v);
                     } else {
-                        form.find('input[name="'+k+'"]').val(v);
+                        form.find('[name="'+k+'"]').val(v);
                     }
                 }
 
