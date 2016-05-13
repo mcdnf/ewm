@@ -76,6 +76,7 @@ $('#header').on('click','.h-right>a.h-btn',function () {
 
 $('#main').on('click','.add',function () {
     tools.creatInputBox($(this).prev());
+    tools.vr($('#addCard'));
 });
 $('#main').on('click','.del',function () {
     $(this).parent().remove();

@@ -51,33 +51,35 @@ widgt.header = function () {
         $('#header').find('.back').hide();
         $('#login').text('登录');
     }
-    api.getcataloglist(listtype, function (data) {
-        if(data.Success && data.Data.List){
-            var list = data.Data.List,
-                $list = $('#catalogMenu'),
-                Pid = 'root',
-                ulArrRel = [],
-                ParentIdArr = [];
-            $list.append('<ul class="on" id="Idroot">'+
-                '<li data-id="0">全部类别 </li>'+
-                '</ul>');
-            list = _.groupBy (list, function (item){
-                return item.ParentId;
-            });
-            $.each(list,function (k,v) {
-                var arr =[];
-                arr.push('<ul class="child" id="Id'+v[0].ParentId+'">');
-                arr.push('<li class="back-parent" data-parentid="'+Pid+'">返回</li>');
-                $.each(v, function (x,y) {
-                    arr.push('<li data-id="'+y.Id+'">'+y.Name+'</li>');
+    if(listtype !== undefined){
+        api.getcataloglist(listtype, function (data) {
+            if(data.Success && data.Data.List){
+                var list = data.Data.List,
+                    $list = $('#catalogMenu'),
+                    Pid = 'root',
+                    ulArrRel = [],
+                    ParentIdArr = [];
+                $list.append('<ul class="on" id="Idroot">'+
+                    '<li data-id="0">全部类别 </li>'+
+                    '</ul>');
+                list = _.groupBy (list, function (item){
+                    return item.ParentId;
                 });
-                arr.push('</ul>');
-                ulArrRel = ulArrRel.concat(arr);
-                Pid = k;
-            });
-            $list.append(ulArrRel.join(''));
-        }
-    })
+                $.each(list,function (k,v) {
+                    var arr =[];
+                    arr.push('<ul class="child" id="Id'+v[0].ParentId+'">');
+                    arr.push('<li class="back-parent" data-parentid="'+Pid+'">返回</li>');
+                    $.each(v, function (x,y) {
+                        arr.push('<li data-id="'+y.Id+'">'+y.Name+'</li>');
+                    });
+                    arr.push('</ul>');
+                    ulArrRel = ulArrRel.concat(arr);
+                    Pid = k;
+                });
+                $list.append(ulArrRel.join(''));
+            }
+        })
+    }
 }
 
 //判断是否登录

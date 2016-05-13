@@ -99,7 +99,7 @@ function goList() {
         .find('.h-left>a').text('').removeClass('h-btn').end()
         .find('.menu').show().end()
         .find('.h-right>a').eq(1).addClass('add').text('').removeClass('h-btn');
-    scrollRefresh();
+    upScroll();
 }
 
 

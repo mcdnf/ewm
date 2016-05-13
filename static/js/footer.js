@@ -25,6 +25,7 @@ widgt.footer = function() {
         $('#infoTab').find('.info-form')
             .eq($(this).index()).addClass("on")
             .siblings('.info-form').removeClass("on");
+        tools.vr($('#infoTab').find('.info-form.on'));
         _infoTabHeight = $("#infoTab").outerHeight(true);
         index_animate();
     });

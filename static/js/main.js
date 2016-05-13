@@ -10,6 +10,8 @@ widgt.main = function () {
 
     //编辑时切换并赋值
     edit();
+
+    tools.vr($('#infoTab').find('.info-form.on'));
     function edit() {
         var editewm = sessionStorage.getItem('editewm'),
             index,
@@ -101,7 +103,7 @@ widgt.main = function () {
             _creat = creat.check(),
             isLogin = sessionStorage.getItem('isLogin');
         if(isLogin){
-            if(_creat.Content){
+            if(_creat && _creat.Content){
                 console.log(_content);
                 var _param = new FormData(_creat.form);
                 _param.append("Content",_creat.Content);

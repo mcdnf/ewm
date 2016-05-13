@@ -211,14 +211,11 @@ var tools = window.tools || {
             document.cookie = "WJUserToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/ ";
         },
         creatInputBox : function(el,text,ismian) {
-            var _el = $(el);
-            _el.parent().after(
-                '<div class="input-box">' +
-                '<span>'+_el.siblings('span').text()+'</span>'+
-                '<input type="'+_el.attr("type")+'" name="'+_el.attr("name")+'" placeholder="'+_el.attr("placeholder")+'" value="'+ (text || "") +'">'+
-                '<i class="'+(ismian ? 'sub' : 'del')+'"></i>'+
-                '</div>'
-            );
+            console.log(text)
+            var _el = $(el).parent();
+            var _item = _el.clone();
+            _item.find('input').val(text).end().find('i')[0].className = ismian ? 'sub' : 'del';
+            _el.after(_item);
         },
         vr : function (FormEl) {
             var _inputArr = FormEl.find('input');
