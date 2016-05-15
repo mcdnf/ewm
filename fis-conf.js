@@ -1,6 +1,6 @@
 // fis.match('*', {
 //     deploy: fis.plugin('local-deliver', {
-//         to: '/work/www/ewm4.18'
+//         to: '/work/www/ewm5.15'
 //     })
 // })
 

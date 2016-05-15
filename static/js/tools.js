@@ -180,7 +180,7 @@ var tools = window.tools || {
         },
         ewmStyle : function (text,el,size,imgEl,callback) {
             var _size = $(window).width()*(size || .7);
-            el.css({'width':_size,'height':_size});
+            el.css({'width':_size,'height':_size,'margin':'0 auto','position':'relative','zIndex':'9999'});
             var options = {
                 size: _size,
                 text: text,
@@ -190,6 +190,7 @@ var tools = window.tools || {
             };
             if(imgEl){
                 var _qrcode  = el.empty().qrcode(options);
+                el.find('img').css({'position':'relative','zIndex':'10000'});
                 _qrcode.callback = callback();
                 // tools.imgToBase64(imgEl.attr('src'),function (dataURL) {
                 //     imgEl[0].src = dataURL;
@@ -201,6 +202,7 @@ var tools = window.tools || {
                 // });
             } else {
                 var _qrcode  = el.empty().qrcode(options);
+                el.find('img').css({'position':'relative','zIndex':'10000'});
                 _qrcode.callback = callback();
             }
         },
