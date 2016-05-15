@@ -12,7 +12,7 @@ $("#loginSubmit").on('click',function () {
             var goLogin = sessionStorage.getItem('goLogin');
             tools.goPage(goLogin || 'creatIndex');
         } else{
-            tools.layer.toast('用户名或密码错误!');
+            tools.layer.toast('账号或密码错误!');
         }
     });
 

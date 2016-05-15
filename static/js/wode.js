@@ -69,6 +69,9 @@ var wode = function () {
                 }
             })
         } else {
+            if(!tools.required($_form)){
+                return;
+            }
             api.userEdit(_param,function (data) {
                 if(data.Success)  {
                     var _naem = $_form.find('input').attr('name');
@@ -107,10 +110,15 @@ var wode = function () {
             }
             $_forme.append('<label class="'+(ischeck.male ? "on" : "")+'">男<input type="radio" name="Gender" value="male" checked="'+ischeck.male+'"></label>' +
                 '<label class="'+(ischeck.female ? "on" : "")+'">女<input type="radio" name="Gender" value="female" checked="'+ischeck.female+'"></label>');
+        } else if(name === "Birthday"){
+            $_forme.append('<input data-vr={"required":"true","maxlength":"50","type":"birthday"} type="text" name="' + name + '" value="' + value + '" placeholder="如：1900-01-01">');
+        } else if(name === "QQ"){
+            $_forme.append('<input data-vr={"required":"true","maxlength":"20","type":"qq"} type="text" name="' + name + '" value="' + value + '">');
         } else {
-            $_forme.append('<input type="text" name="' + name + '" value="' + value + '">');
+            $_forme.append('<input data-vr={"required":"true","maxlength":"50"} type="text" name="' + name + '" value="' + value + '">');
         }
         $('#change').append($_forme);
+        tools.vr($_forme);
         if(name === "Portrait"){
             tools.layer_getImg();
         }

@@ -98,7 +98,9 @@ widgt.main = function () {
     }).on('click', '.creat>button', function (event) {
         event.stopPropagation();
         //点击生成按钮
-
+        if(!tools.required($('#infoTab').find('.info-form.on'))){
+            return;
+        }
         var text = $(this).parent().find('textarea').val(),
             _creat = creat.check(),
             isLogin = sessionStorage.getItem('isLogin');
@@ -123,9 +125,12 @@ widgt.main = function () {
                 tools.layer.toast('请按照格式输入内容!');
             }
         } else {
-            tools.ewmStyle(_creat.Content,$('#grade_look'));
-            $('#createwm-box').show();
-            $('#footer').hide();
+            tools.ewmStyle(_creat.Content,$('#grade_look'),.7,'',ewmStyleCallBack);
+            function ewmStyleCallBack () {
+                $('#createwm-box').show();
+                $('#footer').hide();
+            }
+
         }
 
     }).on('click', '.close', function () {
@@ -137,9 +142,6 @@ widgt.main = function () {
         check : function () {
             var $_form = $('#infoTab').find('.info-form.on'),
                 _textarea = $_form.find('textarea[name="Content1"]').val() || "";
-            if(!tools.required($_form)){
-                return;
-            }
             if($_form.hasClass('text') && _textarea){
                 _content = _textarea;
             } else if($_form.hasClass('sms') && _textarea){

@@ -180,6 +180,7 @@ var tools = window.tools || {
         },
         ewmStyle : function (text,el,size,imgEl,callback) {
             var _size = $(window).width()*(size || .7);
+            el.css({'width':_size,'height':_size});
             var options = {
                 size: _size,
                 text: text,
@@ -188,16 +189,19 @@ var tools = window.tools || {
                 ecLevel : 'H'
             };
             if(imgEl){
-                tools.imgToBase64(imgEl.attr('src'),function (dataURL) {
-                    imgEl[0].src = dataURL;
-                    options.image = imgEl[0];
-                    options.imagesize = 0.1;
-                    options.mode = 4;// 4 是中心图片
-                    el.empty().qrcode(options);
-                    callback();
-                });
+                var _qrcode  = el.empty().qrcode(options);
+                _qrcode.callback = callback();
+                // tools.imgToBase64(imgEl.attr('src'),function (dataURL) {
+                //     imgEl[0].src = dataURL;
+                //     options.image = imgEl[0];
+                //     options.imagesize = 0.1;
+                //     options.mode = 4;// 4 是中心图片
+                //     var _qrcode  = el.empty().qrcode(options);
+                //     _qrcode.callback = callback();
+                // });
             } else {
-                el.empty().qrcode(options);
+                var _qrcode  = el.empty().qrcode(options);
+                _qrcode.callback = callback();
             }
         },
         uuid : function () {
@@ -223,6 +227,9 @@ var tools = window.tools || {
                 var _v = $(v),
                     _val = _v.val(),
                     _data = _v.data('vr');
+                if(typeof _data === 'string'){
+                    _data = JSON.parse(_data);
+                }
                 if(!_data) return true;
                 var _required = _data.required || '',
                     _maxlength = _data.maxlength || '',
@@ -235,6 +242,15 @@ var tools = window.tools || {
                 if (_type === 'tel' || _type === 'mobile' || _type === 'qq') {
                     _v.on('keyup',function (event) {
                         this.value = this.value.replace(/[^\d]/g,'');
+                    })
+                }
+                if (_length) {
+                    _v.on('keyup',function (event) {
+                        var _text = $(this).val();
+                        var _n = _text.length;
+                        if(_maxlength < _n) {
+                            $(this).val(_text.substring(0,_length));
+                        }
                     })
                 }
 
@@ -253,7 +269,7 @@ var tools = window.tools || {
         required : function (FormEl) {
             var _inputArr = FormEl.find('input'),vr=true;
             var _textarea = FormEl.find('textarea');
-            if(_textarea.length){
+            if(_textarea){
                 _inputArr.push(_textarea[0]);
             }
 
@@ -261,6 +277,9 @@ var tools = window.tools || {
                 var _v = $(v),
                     _val = _v.val(),
                     _data = _v.data('vr');
+                if(typeof _data === 'string'){
+                    _data = JSON.parse(_data);
+                }
                 if(!_data) return true;
 
                 var _required = _data.required || '',
@@ -288,7 +307,11 @@ var tools = window.tools || {
                 }
 
                 if (_length && _val.length != _length) {
-                    tools.layer.toast('输入长度必须为'+_length+'位');
+                    if(_type === 'mobile'){
+                        tools.layer.toast('手机号码长度必须为'+_length+'位');
+                    } else{
+                        tools.layer.toast('输入长度必须为'+_length+'位');
+                    }
                     vr =false;
                     _v.focus();
                     return false;
@@ -337,6 +360,14 @@ var tools = window.tools || {
                         return false;
                     }
                 }
+                if (_type === 'birthday') {
+                    if(!_val.match(/^\d{4}-\d{2}-\d{2}$/g))  {
+                        tools.layer.toast('生日格式不不正确');
+                        _v.focus();
+                        vr =false;
+                        return false;
+                    }
+                }
             });
             return vr;
         },
@@ -369,6 +400,8 @@ var tools = window.tools || {
                         $(upFile.el).text('上传成功');
                         $(upFile.el).prev().val(_imgurl);
                         back();
+                    } else {
+                        tools.layer.toast(data.Data);
                     }
                 });
             }
@@ -378,7 +411,7 @@ var tools = window.tools || {
                 ctx = canvas.getContext('2d'),
                 img = new Image,
                 outputFormat = url.split('.').pop();
-            outputFormat = outputFormat === 'jpg' ? 'image/jpeg' : 'image/' + outputFormat;
+            outputFormat = 'image/' + outputFormat;
             img.crossOrigin = 'Anonymous';
             img.onload = function(){
                 canvas.height = img.height;

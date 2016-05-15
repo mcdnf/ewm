@@ -30,7 +30,7 @@ var forgot = function () {
                         $_item.next().find('p').text('请输入' + _account + '收到的验证码');
                         $_item.removeClass('on').next().addClass('on');
                     } else {
-                        tools.layer.toast('验证码有误，请重新输入！');
+                        tools.layer.toast(data.Data);
                     }
                 })
             }

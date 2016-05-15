@@ -64,19 +64,23 @@ $('#main').on('click','#scroller ul>li>i',function (event) {
             '<p>长按识别二维码或将二维码图片保存至手机相册</p>' +
             '</div>');
     }
-    tools.ewmStyle(text,$('#showEwm'),.8);
-    var _size = $(window).width()*.85;
-    layer.open({
-        title: '　',
-        type: 1,
-        area:[_size+'px'],
-        scrollbar: false,
-        content: $('#showEwmBox'),
-        success: function(layero, index){
 
-            console.log(layero, index);
-        }
-    });
+    tools.ewmStyle(text,$('#showEwm'),.7,'',ewmStyleCallBack);
+
+    function ewmStyleCallBack () {
+        var _size = $(window).width() * .85, remToPx = tools.remToPx();
+        var _height = $(window).width() * .7  + 20 + 8 *remToPx;
+        layer.open({
+            title: '　',
+            type: 1,
+            area: [_size + 'px',_height + 'px'],
+            scrollbar: false,
+            content: $('#showEwmBox'),
+            success: function (layero, index) {
+
+            }
+        });
+    }
 });
 
 

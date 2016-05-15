@@ -19,39 +19,28 @@ $('#addUrl').on('click','.del',function (event) {
     $(this).parent().remove();
 });
 
+
 $('#main').on('click','#scroller ul>li>i',function (event) {
     event.stopPropagation();
     widgt.hide();
     var text = 'http://2v.ms/' + $(this).parent().data('item').code;
     if(!$('#showEwmBox').length){
-        $('#view').after('<div id="showEwmBox" style="width: 100%;display: none;padding: 10px 0;">' +
+        $('#view').after('<div id="showEwmBox" style="width: 100%;padding: 10px 0;">' +
             '<div id="showEwm"></div>' +
             '<p>长按识别二维码添加到通讯录或将二维码图片保存至手机相册</p>' +
             '</div>');
     }
-    // var img = $(this).parent().find('img')[0];
-    // tools.ewmStyle(text,$('#showEwm'),.8,img);
-    // var _size = $(window).width()*.85;
-    // layer.open({
-    //     title: '　',
-    //     type: 1,
-    //     area:[_size+'px'],
-    //     scrollbar: false,
-    //     content: $('#showEwmBox'),
-    //     success: function(layero, index){
-    //
-    //     }
-    // });
+
     var img = $(this).parent().find('img');
-    var _size = $(window).width()*.85;
-    tools.ewmStyle(text,$('#showEwm'),.8,img,ewmStyleCallBack);
+    tools.ewmStyle(text,$('#showEwm'),.7,img,ewmStyleCallBack);
 
     function ewmStyleCallBack () {
-        var _size = $(window).width() * .85;
+        var _size = $(window).width() * .85, remToPx = tools.remToPx();
+        var _height = $(window).width() * .7  + 20 + 8 *remToPx;
         layer.open({
             title: '　',
             type: 1,
-            area: [_size + 'px'],
+            area: [_size + 'px',_height + 'px'],
             scrollbar: false,
             content: $('#showEwmBox'),
             success: function (layero, index) {
@@ -92,7 +81,7 @@ function creatItem(parent,page,callBackFn) {
                         '<i></i>' +
                         '<p><span>名片</span><span>'+data.Data.List[i].CreateTime.replace(/[T]/ig," ")+'</span></p>' +
                         '<div class="vcard">' +
-                        '<img src="'+ imgurl +'">' +
+                        '<img src="'+ imgurl.split('@')[0] +'">' +
                         '<dv class="vcard-bg"><p>'+val.CardName+'</p><p>'+val.Station+'</p><p>'+val.Company+'</p></dv>' +
                         '</div>' +
                         '<div class="bar">' +
