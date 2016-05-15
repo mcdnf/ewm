@@ -241,7 +241,7 @@ var tools = window.tools || {
 
 
 
-                if (_type === 'tel' || _type === 'mobile' || _type === 'qq') {
+                if (_type === 'tel' || _type === 'mobile' || _type === 'qq' || _type === 'number') {
                     _v.on('keyup',function (event) {
                         this.value = this.value.replace(/[^\d]/g,'');
                     })

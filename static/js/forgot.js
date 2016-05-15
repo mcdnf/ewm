@@ -9,6 +9,9 @@ var forgot = function () {
     })
 
     var account;
+
+    tools.vr($('#forgot').find('.forgot-item.on'));
+
     $('#forgotNext').on('click',function (event) {
         event.stopPropagation();
         var $_item = $('#forgot').find('.forgot-item.on');
@@ -29,6 +32,7 @@ var forgot = function () {
                         account = _account;
                         $_item.next().find('p').text('请输入' + _account + '收到的验证码');
                         $_item.removeClass('on').next().addClass('on');
+                        tools.vr($('#forgot').find('.forgot-item.on'));
                     } else {
                         tools.layer.toast(data.Data);
                     }
@@ -45,6 +49,7 @@ var forgot = function () {
                     console.log(data);
                     if(data.Success){
                         $_item.removeClass('on').next().addClass('on');
+                        tools.vr($('#forgot').find('.forgot-item.on'));
                     } else {
                         tools.layer.toast('验证码有误，请重新输入！');
                     }
