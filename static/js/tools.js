@@ -218,10 +218,12 @@ var tools = window.tools || {
         },
         creatInputBox : function(el,text,ismian) {
             console.log(text)
-            var _el = $(el).parent();
-            var _item = _el.clone();
-            _item.find('input').val(text).end().find('i')[0].className = ismian ? 'sub' : 'del';
-            _el.after(_item);
+            if(el){
+                var _el = $(el).parent();
+                var _item = _el.clone();
+                _item.find('input').val(text).end().find('i')[0].className = ismian ? 'sub' : 'del';
+                _el.after(_item);
+            }
         },
         vr : function (FormEl) {
             var _inputArr = FormEl.find('input');

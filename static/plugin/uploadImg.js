@@ -11,7 +11,7 @@ jQuery.fn.extend({
             Img: "ImgPr",
             Width: 100,
             Height: 100,
-            ImgSize: 1,//单位M
+            ImgSize: 4,//单位M
             ImgType: ["gif", "jpeg", "jpg", "bmp", "png"],
             Callback: function () {}
         }, opts || {});

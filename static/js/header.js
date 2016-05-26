@@ -22,10 +22,10 @@ widgt.header = function () {
         var _id = $(this).data('id');
         var _Pid = $(this).data('parentid');
         if($(this).hasClass('back-parent')) {
-            $('#Id' + _Pid).show();
-            $ul.addClass('on').animate({
+            $('#Id' + _Pid).addClass('on').show();
+            $ul.animate({
                 right: '-12rem',
-            }, 600, function () {
+            }, 500, function () {
                 $ul.hide().removeClass('on');
             });
             return;
@@ -35,7 +35,7 @@ widgt.header = function () {
         if ($('#Id' + _id).length) {
             $('#Id' + _id).addClass('on').show().animate({
                 right: '.8rem',
-            }, 600, function () {
+            }, 500, function () {
                 $ul.hide().removeClass('on');
             });
         }

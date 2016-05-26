@@ -163,8 +163,9 @@ $('#footer').on('click',function () {
                 },
                 loop: true,
                 onSlideChangeEnd: function(swiper){
-                    var index = swiper.activeIndex > data.Data.length ? 1 : swiper.activeIndex;
-                    creatbg(data.Data[index-1].BackImageList,0);
+                    var index = swiper.activeIndex > data.Data.length ? 0 : swiper.activeIndex-1;
+                    index = index < 0 ? data.Data.length-1 : index;
+                    creatbg(data.Data[index].BackImageList,0);
                 }
             });
             mySwiper1.slideTo(index1+1, 100, false);//切换到第一个slide，速度为1秒
