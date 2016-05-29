@@ -6,7 +6,7 @@
  */
 
 
-
+tools.isLogin();
 
 $('#addItem').on('click',function (event) {
     event.stopPropagation();

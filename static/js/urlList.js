@@ -4,7 +4,7 @@
  * @require /static/js/myScroll.js
  * @require /static/js/api.js
  */
-
+tools.isLogin();
 
 $('#addUrl').on('focus','input',function () {
     tools.vr($('#addUrl'));

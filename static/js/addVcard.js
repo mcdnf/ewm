@@ -8,7 +8,9 @@
  * @require /static/plugin/swiper/swiper-3.3.1.jquery.min.js
  * */
 
-var upFile,editVcard = sessionStorage.getItem('editVcard');
+tools.isLogin();
+
+var upFile, mySwiper1, mySwiper2, activeIndex, editVcard = sessionStorage.getItem('editVcard');
 
 tools.vr($('#addCard'));
 
@@ -25,6 +27,7 @@ $('#header').on('click','.h-left',function () {
         $('#addCard').show();
         $('#selectTpl').hide();
         $('#footer').show();
+        back();
     } else if($('#ImgPr').length) {
         back();
     } else {
@@ -35,7 +38,7 @@ $('#header').on('click','.h-left',function () {
 $('#header').on('click','.h-right>a.h-btn',function () {
     var param = new FormData($('#addCard')[0]);
     if($('#selectTpl').is(':visible')){
-        var Code = $('#selectTpl').find('.swiper-tpl .swiper-slide-active').data('Code');
+        var Code = $($('#swiper-tpl').find('.swiper-slide')[activeIndex]).data('Code');
         $('#addCard').find('input[name="TemplateCode"]').val(Code[1]);
         var backImg = $('#selectTpl').find('.swiper-bg .on').data('backImg');
         $('#addCard').find('input[name="BackImg"]').val(backImg);
@@ -113,11 +116,21 @@ $('#main').find('.add-ewm').on('click',function (event) {
     tools.layer_getImg(true);
 });
 
-$('#swiper-bg').on('click','.swiper-slide',function (event) {
+$('#selectTpl').on('click','#swiper-bg .swiper-slide',function (event) {
     $(this).addClass('on').siblings().removeClass('on');
 });
 
 $('#footer').on('click',function () {
+    $('#selectTpl').append(
+        '<div class="swiper-container swiper-tpl" id="swiper-tpl">'+
+        '    <div class="swiper-wrapper"></div>'+
+        '    <div class="swiper-pagination" id="pagination-tpl"></div>'+
+        '</div>'+
+        '<p>选择背景</p>'+
+        '<div class="swiper-container swiper-bg" id="swiper-bg">'+
+        '    <div class="swiper-wrapper"></div>'+
+        '    <div class="swiper-pagination" id="pagination-bg"></div>'+
+        '</div>');
     var remToPx = tools.remToPx();
     var tplH = $(window).height() - $('#header').height() - remToPx*6.5 - remToPx*2.5;
     $('#swiper-tpl').height(tplH);
@@ -155,7 +168,7 @@ $('#footer').on('click',function () {
                 
             });
 
-            var mySwiper1 = new Swiper('#swiper-tpl',{
+            mySwiper1 = new Swiper('#swiper-tpl',{
                 pagination : '#pagination-tpl',
                 paginationType : 'custom',
                 paginationCustomRender: function (swiper, current, total) {
@@ -166,6 +179,12 @@ $('#footer').on('click',function () {
                     var index = swiper.activeIndex > data.Data.length ? 0 : swiper.activeIndex-1;
                     index = index < 0 ? data.Data.length-1 : index;
                     creatbg(data.Data[index].BackImageList,0);
+                    activeIndex = swiper.activeIndex;
+                    if(activeIndex > data.Data.length ){
+                        activeIndex = 1;
+                    } else if(activeIndex < 1) {
+                        activeIndex = data.Data.length
+                    }
                 }
             });
             mySwiper1.slideTo(index1+1, 100, false);//切换到第一个slide，速度为1秒
@@ -183,7 +202,7 @@ $('#footer').on('click',function () {
                 '</div>').data('backImg',v);
             bgbox.append($slide);
         });
-        var mySwiper2 = new Swiper('#swiper-bg',{
+        mySwiper2 = new Swiper('#swiper-bg',{
             pagination : true,
             slidesPerView : 4,
             onInit: function() {
@@ -201,5 +220,10 @@ function back() {
     $_h.find('.h-center').text('名片');
     $('#footer').show();
     $('#change').empty();
+    $('#selectTpl').empty();
+    mySwiper1.destroy(true);
+    mySwiper2.destroy(true);
+    mySwiper1 = '';
+    mySwiper2 = '';
 }
 
